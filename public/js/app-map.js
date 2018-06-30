@@ -122,8 +122,9 @@ const auth = firebase.auth();
     };
 
     function getUserLoggedIn () {
+      console.log( `DEBUG - in getUserLoggedIn()`);
       $.get("/api/getAuthUser", function(userName) {
-        console.log( `DEBUG - getUserLoggedIn() - ${userName}`);
+        console.log( `DEBUG - after getUserLoggedIn() - ${JSON.stringify(userName)}`);
       });
     };
     $("#logout").on("click", function () {
@@ -139,3 +140,19 @@ const auth = firebase.auth();
   };
 
 //});
+
+/*
+    // Calling the upsertAuthor function and passing in the value of the name input
+    upsertAuthor({
+      name: nameInput
+        .val()
+        .trim()
+    });
+  }
+
+  // A function for creating an author. Calls getAuthors upon completion
+  function upsertAuthor(authorData) {
+    $.post("/api/authors", authorData)
+      .then(getAuthors);
+  }
+  */
