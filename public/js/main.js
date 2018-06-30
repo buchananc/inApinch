@@ -1,5 +1,6 @@
+rating-system
 //CB was here!
-
+//Nataliia made a change
 //Candace's
 var config = {
     apiKey: "AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU",
@@ -96,7 +97,7 @@ btnLogin.addEventListener('click', e => {
             });
 
     });
-
+// Kevin Godwin
 btnLogout.addEventListener('click', e => {
     auth.signOut();
 });
