@@ -16,14 +16,16 @@ module.exports = function(sequelize, DataTypes){
         zIndex: {
             type: DataTypes.INTEGER,
             allowNull: false
-        }
-    });
+        },
 
-    Potty.associate = function(models){
-        Potty.hasMany(models.Reviews, {
-            onDelete: "cascade"
-        });
-    };
+    classMethods: {
+        associate: function(models){
+            Potty.hasMany(models.Reviews, {
+                onDelete: "cascade"
+            });
+        }
+    },
+    });
 
     return Potty;
 };
