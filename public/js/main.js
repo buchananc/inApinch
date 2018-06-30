@@ -1,8 +1,3 @@
-//------------------
-//Todd Add this
-//-------------------
-//CB was here
-//Nataliia made a change
 //Candace's
 var config = {
     apiKey: "AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU",
@@ -36,8 +31,7 @@ $(document).ready(function () {
 /////////////////////////////////////////////////////// 
 //Add login event
 ///////////////////////////////////////////////////////
-
-btnLogin.addEventListener('click', e => {
+    $("#btnLogin").on('click', e => {
     e.preventDefault();
     // Get email and pass
     const email = userEmail.value;
@@ -47,26 +41,26 @@ btnLogin.addEventListener('click', e => {
 
     // Sign in
     auth.signInWithEmailAndPassword(email, pass)
-        // .then( user => {
-        //     console.log("I made it this far!");
-        //     document.getElementById("user_para").innerHTML = "Welcome User: " + user.displayName;
-        // })
-        // .catch(function (error) {
-        //     // Handle error
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
+        .then( user => {
+            console.log("I made it this far!");
+            document.getElementById("user_para").innerHTML = "Welcome User: " + user.displayName;
+        })
+        .catch(function (error) {
+            // Handle error
+            var errorCode = error.code;
+            var errorMessage = error.message;
 
-        //     $("#exampleModal").modal();
-        //     // alert("You look a little flushed! The email you entered is not correct. Try again!");
-        //     console.log(errorMessage);
-        //     alert(errorMessage);
-        // });
+            $("#exampleModal").modal();
+            // alert("You look a little flushed! The email you entered is not correct. Try again!");
+            console.log(errorMessage);
+            // alert(errorMessage);
+        });
 });
 
 ///////////////////////////////////////////////////////
 // Add login to signup event
 ///////////////////////////////////////////////////////
-    $('#sign-up').click(function () {
+    $('#sign-up').on('click', e => {
         $('.log-section').hide();
         $('#signupDiv').show("slow");
     });
@@ -75,7 +69,7 @@ btnLogin.addEventListener('click', e => {
 ///////////////////////////////////////////////////////
 // Add signup event
 ///////////////////////////////////////////////////////
-    $('#createUser').click( function() {
+    $('#createUser').on('click', e => {
         // Get username, email, and pass
         const displayName = txtUsername.value.trim(); //added, not working yet
         const email = txtEmail.value;
@@ -92,14 +86,14 @@ btnLogin.addEventListener('click', e => {
                     //if redirecting to /map the line below can be taken out
                 document.getElementById("user_para").innerHTML = "Welcome User: " + userCredential.user.displayName;
                 ('#signupDiv').modal('hide');  ///TODO: doesnt hide modal 
-                })
+                });
             })
             .catch( function(e) {
               console.log(`error from createUserWithEmailAndPassword() ${e.message}`);
             });
 
     });
-// Kevin Godwin
+
 btnLogout.addEventListener('click', e => {
     auth.signOut();
 });
