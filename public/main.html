@@ -96,7 +96,7 @@
 
     <!-- END OF SIGN UP MODAL -->
 
-    
+
     <!-- WRONG EMAIL/PASS MODAL -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -111,7 +111,7 @@
                     You look a little flushed! The email or password you entered is not correct. Try again!
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                    
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -123,7 +123,12 @@
         <a href="#" data-toggle="modal" data-target="#myModal">Add Location</a>
     </div>
 
-    <!--ADD LOCATION MODAL //////////// -->
+    <!-- Add imaginary pin -->
+    <div>
+        <a href="#" data-toggle="modal" data-target="#review-modal" class="pins">PIN</a>
+    </div>
+
+    <!--ADD LOCATION MODAL -->
     <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -186,7 +191,48 @@
                 </div>
             </div>
         </div>
-    
+    </div>
+
+    <!-- REVIEW MODAL -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="review-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Restroom Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div>STARS</div>
+                        <div>How many Reviews</div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>User1</p>
+                            <span>Rating</span>
+                            <p>Review</p>
+                        </div>
+                        <div>
+                            <p>User2</p>
+                            <span>Rating</span>
+                            <p>Review</p>
+                        </div>
+                        <div>
+                            <p>User3</p>
+                            <span>Rating</span>
+                            <p>Review</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Add Review</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -198,13 +244,12 @@
         crossorigin="anonymous"></script>
     <!-- FIREBASE -->
     <!-- <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script> -->
-        <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
-    
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
+
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
 </body>
 
 </html>
-
