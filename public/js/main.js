@@ -1,5 +1,7 @@
-rating-system
-//CB was here!
+//------------------
+//Todd Add this
+//-------------------
+//CB was here
 //Nataliia made a change
 //Candace's
 var config = {
