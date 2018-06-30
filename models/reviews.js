@@ -11,18 +11,16 @@ module.exports = function(sequelize, DataTypes){
         submittedBy: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-
-    classMethods: {
-        associate: function(models){
-            Reviews.belongsTo(models.Potty, {
-                foreignKey: {
-                    allowNull: false,
-                }
-            });
-        },
-    },
+        }
     });
+
+    Reviews.associate = function(models){
+        Reviews.belongsTo(models.Potty, {
+            foreingKey: {
+                allowNull: false
+            }
+        });
+    };
 
     return Reviews;
 };
