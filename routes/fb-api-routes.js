@@ -16,18 +16,23 @@ const auth = firebase.auth();
 const email = "testtaw1@gmail.com"
 const pass = "generic";
 
-auth.signInWithEmailAndPassword( email, pass)
-.then( user => {
-      console.log("!!Logged in!!!");
-  })
-  .catch( err => {
-      console.log( "Failed to log in" );
-      console.log( err.message );
-  });
-
 module.exports = function(app) {
 
-    app.get("/api/getAuthUser", function(req, res) {
+    app.get("/api/authSign", (req, res) => {
+        console.log(req.body);
+        /*
+        auth.signInWithEmailAndPassword( email, pass)
+        .then( user => {
+            console.log("!!Logged in!!!");
+        })
+        .catch( err => {
+            console.log( "Failed to log in" );
+            console.log( err.message );
+        });
+        */
+    });
+
+    app.get("/api/getAuthUser", (req, res) => {
         console.log("DEBUG - getAuthUsers route")
     });
 
