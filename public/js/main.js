@@ -95,7 +95,7 @@ btnLogin.addEventListener('click', e => {
             });
 
     });
-
+// Kevin Godwin
 btnLogout.addEventListener('click', e => {
     auth.signOut();
 });
