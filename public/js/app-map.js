@@ -9,6 +9,19 @@
 //];
 
 //$(document).ready(function() {
+    //Candace's
+var config = {
+  apiKey: "AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU",
+  authDomain: "in-a-pinch-project-2.firebaseapp.com",
+  databaseURL: "https://in-a-pinch-project-2.firebaseio.com",
+  projectId: "in-a-pinch-project-2",
+  storageBucket: "in-a-pinch-project-2.appspot.com",
+  messagingSenderId: "674290992138"
+};
+
+firebase.initializeApp(config);
+// Get a reference to the database service
+const auth = firebase.auth();
 
     getUserLoggedIn();
     getAllRestRooms();
@@ -113,5 +126,16 @@
         console.log( `DEBUG - getUserLoggedIn() - ${userName}`);
       });
     };
+    $("#logout").on("click", function () {
+     
+      firebase.auth().signOut()
+          
+      
+      window.location.assign('/');
+  });
+  function getLocation(latlng){
+    $.post("/map/location", latlng)
+    console.log(latlng);
+  };
 
 //});
