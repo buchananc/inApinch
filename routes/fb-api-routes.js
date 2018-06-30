@@ -34,6 +34,11 @@ module.exports = function(app) {
 
     app.get("/api/getAuthUser", (req, res) => {
         console.log("DEBUG - getAuthUsers route")
+        let user = {
+            name: "TestUser",
+            token: "ewoiadkfsio320ufeaidshsn"
+        };
+        res.json( user );
     });
 
 };
