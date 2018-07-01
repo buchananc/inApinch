@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rating Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../public/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+</head>
+
+<body>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="rateThisTitle">Rate This Restroom: </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" id="ratingForm">
+                        <label style="display:inline-block" class="col-md-6" id="ratingUser">Your Username:
+                            <span id="ratingUsername"></span>
+                        </label>
+                        <br>
+                        <label style="display:inline-block;" for="input-1" class="control-label">Make Your Mark: </label>
+                        <br>
+                        <div style="display:inline-block;" id="rateYo"></div>
+                        <input type="hidden" name="rating" id="rating_input" />
+                        <br>
+                        <label style="display:inline-block" class="control-label">Comments (No potty language please!): </label>
+                        <br>
+                        <div class="col-xs-12">
+                            <input class="form-control" id="commentBox" type="text">
+                        </div>
+                    </div>
+                    <br/>
+                    <button type="button" id="updateRatingBtn" class="btn btn-info ">Save</button>
+                    <button type="button" id="ModalClose" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+    <script src="../public/js/rating.js"></script>
+
+</body>
+
+</html>
