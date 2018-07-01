@@ -123,3 +123,16 @@ input:focus {
     border: 1px solid #6d7bd4;
     cursor: pointer;
 }
+
+/* in rating modal */
+#rateThisTitle {
+    text-align: left;
+}
+
+#ratingUser {
+    padding-left: 0;
+}
+
+#ratingForm {
+    text-align: left;
+}
