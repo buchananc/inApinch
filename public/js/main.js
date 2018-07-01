@@ -1,57 +1,52 @@
 //Candace's
 var config = {
-    apiKey: "AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU",
-    authDomain: "in-a-pinch-project-2.firebaseapp.com",
-    databaseURL: "https://in-a-pinch-project-2.firebaseio.com",
-    projectId: "in-a-pinch-project-2",
-    storageBucket: "in-a-pinch-project-2.appspot.com",
-    messagingSenderId: "674290992138"
+    apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
+    authDomain: 'in-a-pinch-project-2.firebaseapp.com',
+    databaseURL: 'https://in-a-pinch-project-2.firebaseio.com',
+    projectId: 'in-a-pinch-project-2',
+    storageBucket: 'in-a-pinch-project-2.appspot.com',
+    messagingSenderId: '674290992138'
 };
 
 firebase.initializeApp(config);
 // Get a reference to the database service
 const auth = firebase.auth();
-// const usersRef = firebase.database().ref("/users");
+// const usersRef = firebase.database().ref('/users');
 
 $(document).ready(function () {
     ///////////////////////////////////////////////////////
     // Get elements
     ///////////////////////////////////////////////////////
-    const userEmail = document.getElementById('userEmail'); //registered user
-    const userPassword = document.getElementById('userPassword'); //registered user
+    const userEmail = $('#userEmail');                            //registered user
+    const userPassword = $('#userPassword');                      //registered user
     //--------------------------------------------------------
-    const txtUsername = document.getElementById('txtUsername'); //new user
-    const txtEmail = document.getElementById('txtEmail'); //new user
-    const txtPassword = document.getElementById('txtPassword'); //new user
+    const txtUsername = $('#txtUsername');                        //new user
+    const txtEmail = $('#txtEmail');                              //new user
+    const txtPassword = $('#txtPassword');                        //new user
     //--------------------------------------------------------
-    const btnLogin = document.getElementById('btnLogin');
-    const btnRegister = document.getElementById('btnRegister');
-    const btnLogout = document.getElementById('btnLogout');
 
     /////////////////////////////////////////////////////// 
     //Add login event
     ///////////////////////////////////////////////////////
-    $("#btnLogin").on('click', e => {
+    $('#btnLogin').on('click', e => {
         e.preventDefault();
         // Get email and pass
-        const email = userEmail.value;
-        const pass = userPassword.value;
-
-        console.log(email, pass);
+        const email = userEmail.val();
+        const pass = userPassword.val();
 
         // Sign in
         auth.signInWithEmailAndPassword(email, pass)
             .then(user => {
-                console.log("I made it this far!");
-                document.getElementById("user_para").innerHTML = "Welcome User: " + user.displayName;
+                console.log('I made it this far!');
+                $('#user_para').text('Welcome User: ' + user.displayName);
             })
             .catch(function (error) {
                 // Handle error
                 var errorCode = error.code;
                 var errorMessage = error.message;
 
-                $("#exampleModal").modal();
-                // alert("You look a little flushed! The email you entered is not correct. Try again!");
+                $('#exampleModal').modal();
+                // alert('You look a little flushed! The email you entered is not correct. Try again!');
                 console.log(errorMessage);
                 // alert(errorMessage);
             });
@@ -62,7 +57,7 @@ $(document).ready(function () {
     ///////////////////////////////////////////////////////
     $('#sign-up').on('click', e => {
         $('.log-section').hide();
-        $('#signupDiv').show("slow");
+        $('#signupDiv').show('slow');
     });
 
 
@@ -71,10 +66,11 @@ $(document).ready(function () {
     ///////////////////////////////////////////////////////
     $('#createUser').on('click', e => {
         // Get username, email, and pass
-        const displayName = txtUsername.value.trim(); //added, not working yet
-        const email = txtEmail.value;
-        const pass = txtPassword.value;
+        const displayName = txtUsername.val().trim();
+        const email = txtEmail.val().trim();
+        const pass = txtPassword.val().trim();
 
+        console.log(`DEBUG - createUser displayName = ${displayName}`);
 
         // Sign up
         auth.createUserWithEmailAndPassword(email, pass)
@@ -84,8 +80,8 @@ $(document).ready(function () {
                 }).then(function () {
                     console.log(userCredential);
                     //if redirecting to /map the line below can be taken out
-                    document.getElementById("user_para").innerHTML = "Welcome User: " + userCredential.user.displayName;
-                    ('#signupDiv').modal('hide'); ///TODO: doesnt hide modal 
+                    $('#user_para').text('Welcome User: ' + userCredential.user.displayName);
+                    $('#signupDiv').modal('hide'); 
                 });
             })
             .catch(function (e) {
@@ -94,7 +90,7 @@ $(document).ready(function () {
 
     });
 
-    btnLogout.addEventListener('click', e => {
+    $('#btnLogout').on('click', e => {
         auth.signOut();
     });
 
@@ -102,31 +98,27 @@ $(document).ready(function () {
     ///////////////////////////////////////////////////////
     // Add a realtime listener
     ///////////////////////////////////////////////////////
-
     auth.onAuthStateChanged(function (user) {
         console.log(user);
 
         if (user) {
-
             // User is signed in.
-            document.getElementById("user_div").style.display = "block";
-            document.getElementById("main_div").style.display = "none";
-            document.getElementById("user_para").innerHTML = "Welcome User: " + user.displayName;
+            $('#user_div').show();
+            $('#main_div').hide();
+            $('#user_para').text('Welcome User: ' + user.displayName);
             window.location.assign('/map');
         } else {
-
             // No user is signed in.
-            console.log("not logged in");
-            document.getElementById("user_div").style.display = "none";
-            document.getElementById("main_div").style.display = "block";
+            console.log('not logged in');
+            $('#user_div').hide();
+            $('#main_div').show();
         }
     });
 
     ///////////////////////////////////////////////////////
     //User click btn event to go to rating modal
     ///////////////////////////////////////////////////////
-
-    $("#addReviewBtn").on('click', e => {
+    $('#addReviewBtn').on('click', e => {
         $('#ratingModal').modal('show');
         $('#review-modal').modal('hide');
         $('#locationModal').modal('hide');
@@ -141,20 +133,20 @@ $(document).ready(function () {
 
     $(function () {
         //Star rating function
-        $("#rateYo").rateYo({
+        $('#rateYo').rateYo({
             onSet: function (rating, rateYoInstance) {
                 //gets user rating
                 rating = Math.ceil(rating);
                 $('#rating_input').val(rating); //setting up rating value to hidden field
-                // alert("Rating is set to: " + rating);
-                console.log("User rating: " + rating);
+                // alert('Rating is set to: ' + rating);
+                console.log('User rating: ' + rating);
             }
         });
 
-        $("#updateRatingBtn").on("click", function (event) {
+        $('#updateRatingBtn').on('click', function (event) {
             //Get user comment
-            var comment = $("#commentBox").val();
-            console.log("User comment: " + comment);
+            var comment = $('#commentBox').val();
+            console.log('User comment: ' + comment);
         });
     });
 });
