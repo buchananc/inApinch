@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
 
+    <!-- RateYo style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+
     <!-- linking local css -->
     <link rel="stylesheet" href="./css/style.css">
 
@@ -58,7 +61,6 @@
         <h4 class="form-header">Welcome to In a Pinch!</h4>
         <p id="user_para">You are currently logged in.</p>
         <button class="btn btn-primary btn-block button" id="btnLogout">Sign Out</button>
-        <!-- May need to add this back to sign out btn: onclick="logout()" -->
     </div>
     <!-- END OF WELCOME DIV -->
 
@@ -93,7 +95,6 @@
             </div>
         </div>
     </div>
-
     <!-- END OF SIGN UP MODAL -->
 
 
@@ -120,16 +121,16 @@
 
     <!-- Add location button -->
     <div>
-        <a href="#" data-toggle="modal" data-target="#myModal">Add Location</a>
+        <a href="#" data-toggle="modal" data-target="#locationModal">Add Location</a>
     </div>
 
     <!-- Add imaginary pin -->
     <div>
-        <a href="#" data-toggle="modal" data-target="#review-modal" class="pins">PIN</a>
+        <a href="#" data-toggle="modal" data-target="#review-modal" class="pins" id="pinModal">PIN</a>
     </div>
 
-    <!--ADD LOCATION MODAL -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <!--ADD LOCATION MODAL (CB changed id to "locationModal" bc "myModal" id was used already)-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="locationModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -227,13 +228,49 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Add Review</button>
+                    <button type="button" class="btn btn-primary" id="addReviewBtn">Add Review</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- RATING MODAL -->
+    <!-- Trigger the modal with addReviewBtn button -->
+    <div id="ratingModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="rateThisTitle">Rate This Restroom: </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" id="ratingForm">
+                        <label style="display:inline-block" class="col-md-6" id="ratingUser">Your Username:
+                            <span id="ratingUsername"></span>
+                        </label>
+                        <br>
+                        <label style="display:inline-block;" for="input-1" class="control-label">Make Your Mark: </label>
+                        <br>
+                        <div style="display:inline-block;" id="rateYo"></div>
+                        <input type="hidden" name="rating" id="rating_input" />
+                        <br>
+                        <label style="display:inline-block" class="control-label">Comments (No potty language please!): </label>
+                        <br>
+                        <div class="col-xs-12">
+                            <input class="form-control" id="commentBox" type="text">
+                        </div>
+                    </div>
+                    <br/>
+                    <button type="button" id="updateRatingBtn" class="btn btn-info ">Save</button>
+                    <button type="button" id="ModalClose" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -242,6 +279,10 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
+
+    <!-- RateYo CDN (used for stars in rating modal) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+
     <!-- FIREBASE -->
     <!-- <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
