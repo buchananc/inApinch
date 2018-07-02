@@ -117,7 +117,7 @@ body {
 }
 
 #map {
-    height: 900px;
+    height: 92vh;
     overflow: visible;
     position: absolute;
     z-index: -1;
