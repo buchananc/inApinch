@@ -1,17 +1,14 @@
-//Candace's
-var config = {
-    apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
-    authDomain: 'in-a-pinch-project-2.firebaseapp.com',
-    databaseURL: 'https://in-a-pinch-project-2.firebaseio.com',
-    projectId: 'in-a-pinch-project-2',
-    storageBucket: 'in-a-pinch-project-2.appspot.com',
-    messagingSenderId: '674290992138'
+//-----------------------------------------------------------------------------------------------------
+// Global variable for the client user's info
+//-----------------------------------------------------------------------------------------------------
+let authUser = {
+  email: '',
+  password: '',
+  userName: '',
+  loggedIn: false,
+  errMessage: '',
+  authToken: ''
 };
-
-firebase.initializeApp(config);
-// Get a reference to the database service
-const auth = firebase.auth();
-// const usersRef = firebase.database().ref('/users');
 
 $(document).ready(function () {
     ///////////////////////////////////////////////////////
@@ -29,27 +26,25 @@ $(document).ready(function () {
     //Add login event
     ///////////////////////////////////////////////////////
     $('#btnLogin').on('click', e => {
-        e.preventDefault();
+         e.preventDefault();
         // Get email and pass
-        const email = userEmail.val();
-        const pass = userPassword.val();
+        authUser.email = userEmail.val();
+        authUser.password = userPassword.val();
 
-        // Sign in
-        auth.signInWithEmailAndPassword(email, pass)
-            .then(user => {
+        $.post('/api/authSignIn', authUser, (validAuthUser) => {
+            authUser = validAuthUser;
+            if (authUser.loggedIn) {
                 console.log('I made it this far!');
-                $('#user_para').text('Welcome User: ' + user.displayName);
-            })
-            .catch(function (error) {
-                // Handle error
-                var errorCode = error.code;
-                var errorMessage = error.message;
-
+                $('#user_div').show();
+                $('#main_div').hide();
+                $('#user_para').text('Welcome User: ' + authUser.userName);
+            }
+            else {
                 $('#exampleModal').modal();
-                // alert('You look a little flushed! The email you entered is not correct. Try again!');
-                console.log(errorMessage);
-                // alert(errorMessage);
-            });
+                console.log( authUser.errMessage );
+            }
+        });
+
     });
 
     ///////////////////////////////////////////////////////
@@ -66,54 +61,40 @@ $(document).ready(function () {
     ///////////////////////////////////////////////////////
     $('#createUser').on('click', e => {
         // Get username, email, and pass
-        const displayName = txtUsername.val().trim();
-        const email = txtEmail.val().trim();
-        const pass = txtPassword.val().trim();
+        authUser.email = txtEmail.val();
+        authUser.password = txtPassword.val();
+        authUser.userName = txtUsername.val().trim();
 
-        console.log(`DEBUG - createUser displayName = ${displayName}`);
-
-        // Sign up
-        auth.createUserWithEmailAndPassword(email, pass)
-            .then(function (userCredential) {
-                userCredential.user.updateProfile({
-                    displayName: displayName
-                }).then(function () {
-                    console.log(userCredential);
-                    //if redirecting to /map the line below can be taken out
-                    $('#user_para').text('Welcome User: ' + userCredential.user.displayName);
-                    $('#signupDiv').modal('hide'); 
-                });
-            })
-            .catch(function (e) {
-                console.log(`error from createUserWithEmailAndPassword() ${e.message}`);
-            });
-
+        $.post('/api/authCreateUser', authUser, (validAuthUser) => {
+            authUser = validAuthUser;
+            if (authUser.loggedIn) {
+                console.log('I made it this far!');
+                $('#user_para').text('Welcome User: ' + authUser.logedIn);
+                $('#signupDiv').modal('hide'); 
+                $('#user_div').hide();
+                $('#main_div').hide();
+            }
+            else {
+                $('#exampleModal').modal();
+                console.log( authUser.errMessage );
+            }
+        });
     });
 
     $('#btnLogout').on('click', e => {
-        auth.signOut();
+        $.post('/api/authSignOut', authUser, (validAuthUser) => {
+            authUser = validAuthUser;
+            window.location.assign('/');
+        });
     });
 
-
-    ///////////////////////////////////////////////////////
-    // Add a realtime listener
-    ///////////////////////////////////////////////////////
-    auth.onAuthStateChanged(function (user) {
-        console.log(user);
-
-        if (user) {
-            // User is signed in.
-            $('#user_div').show();
-            $('#main_div').hide();
-            $('#user_para').text('Welcome User: ' + user.displayName);
-            window.location.assign('/map');
-        } else {
-            // No user is signed in.
-            console.log('not logged in');
-            $('#user_div').hide();
-            $('#main_div').show();
-        }
+    $('#sign-out').on('click', e => {
+        $.post('/api/authSignOut', authUser, (validAuthUser) => {
+            authUser = validAuthUser;
+            window.location.assign('/');
+        });
     });
+
 
     ///////////////////////////////////////////////////////
     //User click btn event to go to rating modal
