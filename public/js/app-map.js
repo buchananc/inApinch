@@ -3,7 +3,6 @@
 // failed.', it means you probably did not give permission for the browser to
 // locate you.
 
-//$(document).ready(function() {
     //Candace's
 var config = {
   apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
@@ -18,6 +17,8 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 const auth = firebase.auth();
 
+// google map does not work (readystatechange) violation 
+//$(document).ready(function() {
     getUserLoggedIn();
     getAllRestRooms();
 
