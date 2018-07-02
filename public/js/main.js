@@ -2,12 +2,12 @@
 // Global variable for the client user's info
 //-----------------------------------------------------------------------------------------------------
 let authUser = {
-  email: '',
-  password: '',
-  userName: '',
-  loggedIn: false,
-  errMessage: '',
-  authToken: ''
+    email: '',
+    password: '',
+    userName: '',
+    loggedIn: false,
+    errMessage: '',
+    authToken: ''
 };
 
 
@@ -18,47 +18,50 @@ getAllRestRooms();
 var map, infoWindow;
 
 function initMap() {
-  let myLatLng = {lat: 35.22888353357024, lng: -80.83476207120572};
+    let myLatLng = {
+        lat: 35.22888353357024,
+        lng: -80.83476207120572
+    };
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    zoom: 11
-  });
-  infoWindow = new google.maps.InfoWindow;
-
-  // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      myLatLng = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-    
-      infoWindow.setPosition(myLatLng);
-      infoWindow.setContent('Location found.');
-      infoWindow.open(map);
-      map.setCenter(myLatLng);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        zoom: 11
     });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
+    infoWindow = new google.maps.InfoWindow;
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            myLatLng = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(myLatLng);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(myLatLng);
+        }, function () {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
 
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  ////////////////////////////////////////////////////////////////////////////////////
-  // ToDo - remove this due to it being placed in the middle of the screen
-  //         need to determine where to position this
-  ///        or set a timeout that will clear it after a few seconds of display
-  ////////////////////////////////////////////////////////////////////////////////////
-  //infoWindow.setPosition(pos);
-  //infoWindow.setContent(browserHasGeolocation ?
-  //                      'Error: The Geolocation service failed.' :
-  //                      'Error: Your browser doesn\'t support geolocation.');
-  //infoWindow.open(map);
+    ////////////////////////////////////////////////////////////////////////////////////
+    // ToDo - remove this due to it being placed in the middle of the screen
+    //         need to determine where to position this
+    ///        or set a timeout that will clear it after a few seconds of display
+    ////////////////////////////////////////////////////////////////////////////////////
+    //infoWindow.setPosition(pos);
+    //infoWindow.setContent(browserHasGeolocation ?
+    //                      'Error: The Geolocation service failed.' :
+    //                      'Error: Your browser doesn\'t support geolocation.');
+    //infoWindow.open(map);
 };
 
 
@@ -71,48 +74,53 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 // Origins, anchor positions and coordinates of the marker increase in the X
 // direction to the right and in the Y direction down.
 //-------------------------------------------------------------------------------------------------
-function setMarkers(map, restRooms ) {
+function setMarkers(map, restRooms) {
 
-  var image = {
-    url: './images/the-pin.svg', 
-    scaledSize: new google.maps.Size(32, 32),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 32)
-  };
+    var image = {
+        url: './images/the-pin.svg',
+        scaledSize: new google.maps.Size(32, 32),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 32)
+    };
 
-  console.log( `DEBUG - setMarkers() - # of Rest Rooms = ${restRooms.length}`);
+    console.log(`DEBUG - setMarkers() - # of Rest Rooms = ${restRooms.length}`);
 
-  for (var i = 0; i < restRooms.length; i++) {
-    var marker = new google.maps.Marker({
-      position: {lat: restRooms[i].lat, lng: restRooms[i].lng},
-      map: map,
-      icon: image,
-      title: restRooms[i].name,
-      zIndex: restRooms[i].zIndex
-    });
+    for (var i = 0; i < restRooms.length; i++) {
+        var marker = new google.maps.Marker({
+            position: {
+                lat: restRooms[i].lat,
+                lng: restRooms[i].lng
+            },
+            map: map,
+            icon: image,
+            title: restRooms[i].name,
+            zIndex: restRooms[i].zIndex
+        });
 
-    addMarkerUniqID(marker, restRooms[i].id);
+        addMarkerUniqID(marker, restRooms[i].id);
 
-  }
+    }
 }
 
-function addMarkerUniqID( marker, ID ) {
-  var newInfoWindow = new google.maps.InfoWindow({ markerID: ID });
-
-  marker.addListener('click', function() {
-    // newInfoWindow.open( marker.get('map'), marker);
-    console.log( `DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}` );
-    $.get(`/api/getRestRoom/${newInfoWindow.markerID}`, function(data) {
-      console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
+function addMarkerUniqID(marker, ID) {
+    var newInfoWindow = new google.maps.InfoWindow({
+        markerID: ID
     });
-  });
+
+    marker.addListener('click', function () {
+        // newInfoWindow.open( marker.get('map'), marker);
+        console.log(`DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}`);
+        $.get(`/api/getRestRoom/${newInfoWindow.markerID}`, function (data) {
+            console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
+        });
+    });
 }
 
 function getAllRestRooms() {
-  $.get('/api/allRestRooms', function(restRooms) {
-    console.log( `DEBUG - getAllRestRooms() - # of Rest Rooms = ${restRooms.length}`);
-    setMarkers( map, restRooms );
-  });
+    $.get('/api/allRestRooms', function (restRooms) {
+        console.log(`DEBUG - getAllRestRooms() - # of Rest Rooms = ${restRooms.length}`);
+        setMarkers(map, restRooms);
+    });
 };
 
 
@@ -122,19 +130,19 @@ $(document).ready(function () {
     ///////////////////////////////////////////////////////
     // Get elements
     ///////////////////////////////////////////////////////
-    const userEmail = $('#userEmail');                            //registered user
-    const userPassword = $('#userPassword');                      //registered user
+    const userEmail = $('#userEmail'); //registered user
+    const userPassword = $('#userPassword'); //registered user
     //--------------------------------------------------------
-    const txtUsername = $('#txtUsername');                        //new user
-    const txtEmail = $('#txtEmail');                              //new user
-    const txtPassword = $('#txtPassword');                        //new user
+    const txtUsername = $('#txtUsername'); //new user
+    const txtEmail = $('#txtEmail'); //new user
+    const txtPassword = $('#txtPassword'); //new user
     //--------------------------------------------------------
 
     /////////////////////////////////////////////////////// 
     //Add login event
     ///////////////////////////////////////////////////////
     $('#btnLogin').on('click', e => {
-         e.preventDefault();
+        e.preventDefault();
         // Get email and pass
         authUser.email = userEmail.val();
         authUser.password = userPassword.val();
@@ -145,10 +153,9 @@ $(document).ready(function () {
                 console.log('I made it this far!');
                 $('#user_div').hide();
                 $('#main_div').hide();
-            }
-            else {
+            } else {
                 $('#exampleModal').modal();
-                console.log( authUser.errMessage );
+                console.log(authUser.errMessage);
             }
         });
 
@@ -176,13 +183,12 @@ $(document).ready(function () {
             authUser = validAuthUser;
             if (authUser.loggedIn) {
                 console.log('I made it this far!');
-                $('#signupDiv').modal('hide'); 
+                $('#signupDiv').modal('hide');
                 $('#user_div').hide();
                 $('#main_div').hide();
-            }
-            else {
+            } else {
                 $('#exampleModal').modal();
-                console.log( authUser.errMessage );
+                console.log(authUser.errMessage);
             }
         });
     });
@@ -201,6 +207,25 @@ $(document).ready(function () {
         });
     });
 
+    ///////////////////////////////////////////////////////
+    //Review Modal Content (pulling info from DB)
+    ///////////////////////////////////////////////////////
+
+
+    //star rating
+
+    $("#rateYoStars").rateYo({
+        rating: "50%",
+        precision: 0
+
+    });
+    // Getter
+    var normalFill = $("#rateYoStars").rateYo("option", "rating"); //returns 50
+
+    // Setter
+    $("#rateYoStars").rateYo("option", "rating", 5); //returns a jQuery Element
+
+
 
     ///////////////////////////////////////////////////////
     //User click btn event to go to rating modal
@@ -214,6 +239,7 @@ $(document).ready(function () {
 
     ///////////////////////////////////////////////////////
     // Rating Modal Event
+    //http://rateyo.fundoocode.ninja/#method-rating
     ///////////////////////////////////////////////////////
     //This is not working yet (not creating json obj)...
     //Needs to include restroomId, username, rating, comments
@@ -232,6 +258,7 @@ $(document).ready(function () {
 
     //when user click 'save' button, response will print (still not json obj)
     $('#updateRatingBtn').click(function () {
+        $('#ratingModal').modal('hide');
         //uncomment restroomId and locationRating once they are connected to db
         // var restroomId = $('#ratingModal #locationName').val().trim();
         // var userUsername = $('#ratingModal #ratingUsername').val().trim();
