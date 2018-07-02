@@ -45,6 +45,9 @@
         </form>
     </nav>
 
+    <!-- MAP DIV -->
+    <div id="map" class="col-md-12"></div>
+
     <!-- MAIN SIGN IN DIV -->
     <div class="col-md-3 col-lg-4" id="log-section">
         <div id="main_div" class="main-div">
@@ -295,14 +298,11 @@
     <!-- RateYo CDN (used for stars in rating modal) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
 
-    <!-- FIREBASE -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script> -->
-    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
-
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJesWQEpHZD5upRYHzyhWIZ26JaHxOM8g&callback=initMap">
+    </script>
 </body>
 
 </html>

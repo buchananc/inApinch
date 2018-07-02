@@ -3,20 +3,6 @@
 // failed.', it means you probably did not give permission for the browser to
 // locate you.
 
-    //Candace's
-var config = {
-  apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
-  authDomain: 'in-a-pinch-project-2.firebaseapp.com',
-  databaseURL: 'https://in-a-pinch-project-2.firebaseio.com',
-  projectId: 'in-a-pinch-project-2',
-  storageBucket: 'in-a-pinch-project-2.appspot.com',
-  messagingSenderId: '674290992138'
-};
-
-firebase.initializeApp(config);
-// Get a reference to the database service
-const auth = firebase.auth();
-
 // google map does not work (readystatechange) violation 
 //$(document).ready(function() {
     getUserLoggedIn();
@@ -51,8 +37,6 @@ const auth = firebase.auth();
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
       }
-
-//      setMarkers( map );
 
     }
 
@@ -123,13 +107,15 @@ const auth = firebase.auth();
         console.log( `DEBUG - after getUserLoggedIn() - ${JSON.stringify(userName)}`);
       });
     };
+
     $('#logout').on('click', function () {
      
-      firebase.auth().signOut()
-          
-      
-      window.location.assign('/');
-  });
+        $.post('/api/authSignOut', authUser, (validAuthUser) => {
+            authUser = validAuthUser;
+            window.location.assign('/');
+        });
+    });
+
   function getLocation(latlng){
     $.post('/map/location', latlng)
     console.log(latlng);
