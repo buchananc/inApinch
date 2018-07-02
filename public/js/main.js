@@ -124,29 +124,36 @@ $(document).ready(function () {
         $('#locationModal').modal('hide');
     });
 
-    
+
     ///////////////////////////////////////////////////////
     // Rating Modal Event
     ///////////////////////////////////////////////////////
     //This is not working yet (not creating json obj)...
     //Needs to include restroomId, username, rating, comments
 
-    $(function () {
-        //Star rating function
-        $('#rateYo').rateYo({
-            onSet: function (rating, rateYoInstance) {
-                //gets user rating
-                rating = Math.ceil(rating);
-                $('#rating_input').val(rating); //setting up rating value to hidden field
-                // alert('Rating is set to: ' + rating);
-                console.log('User rating: ' + rating);
-            }
-        });
+    //Star rating function (do not erase ;)
+    $("#rateYo").rateYo({
+        onSet: function (rating, rateYoInstance) {
+            // $(this).parent().parent().data('rating', rating); //TA Alan's code (not in correct spot)
+            //gets user rating
+            rating = Math.ceil(rating);
+            $('#rating_input').val(rating); //setting up rating value to hidden field
+            console.log("User rating: " + rating);
+        }
 
-        $('#updateRatingBtn').on('click', function (event) {
-            //Get user comment
-            var comment = $('#commentBox').val();
-            console.log('User comment: ' + comment);
-        });
     });
+
+    //when user click 'save' button, response will print (still not json obj)
+    $('#updateRatingBtn').click(function () {
+        //uncomment restroomId and locationRating once they are connected to db
+        // var restroomId = $('#ratingModal #locationName').val().trim();
+        // var userUsername = $('#ratingModal #ratingUsername').val().trim();
+
+        var locationRating = $('#ratingModal #rating_input');
+        var comments = $('#ratingModal #commentBox');
+        //prints to DOM
+        // $('#result').html(comments + " " + locationRating + " " + userUsername + " " + restroomId);
+        console.log(locationRating + " " + comments);
+    });
+
 });
