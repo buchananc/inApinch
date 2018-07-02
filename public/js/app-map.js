@@ -1,22 +1,17 @@
 // Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
+// prompted by your browser. If you see the error 'The Geolocation service
+// failed.', it means you probably did not give permission for the browser to
 // locate you.
-
-//var restRooms = [
-//  ['test1',35.328839, -80.93479, 1, '2342'],
-//  ['test2',35.22883532, -80.8347621, 1, '2343']
-//];
 
 //$(document).ready(function() {
     //Candace's
 var config = {
-  apiKey: "AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU",
-  authDomain: "in-a-pinch-project-2.firebaseapp.com",
-  databaseURL: "https://in-a-pinch-project-2.firebaseio.com",
-  projectId: "in-a-pinch-project-2",
-  storageBucket: "in-a-pinch-project-2.appspot.com",
-  messagingSenderId: "674290992138"
+  apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
+  authDomain: 'in-a-pinch-project-2.firebaseapp.com',
+  databaseURL: 'https://in-a-pinch-project-2.firebaseio.com',
+  projectId: 'in-a-pinch-project-2',
+  storageBucket: 'in-a-pinch-project-2.appspot.com',
+  messagingSenderId: '674290992138'
 };
 
 firebase.initializeApp(config);
@@ -115,7 +110,7 @@ const auth = firebase.auth();
     };
 
     function getAllRestRooms() {
-      $.get("/api/allRestRooms", function(restRooms) {
+      $.get('/api/allRestRooms', function(restRooms) {
         console.log( `DEBUG - getAllRestRooms() - # of Rest Rooms = ${restRooms.length}`);
         setMarkers( map, restRooms );
       });
@@ -123,11 +118,11 @@ const auth = firebase.auth();
 
     function getUserLoggedIn () {
       console.log( `DEBUG - in getUserLoggedIn()`);
-      $.get("/api/getAuthUser", function(userName) {
+      $.get('/api/getAuthUser', function(userName) {
         console.log( `DEBUG - after getUserLoggedIn() - ${JSON.stringify(userName)}`);
       });
     };
-    $("#logout").on("click", function () {
+    $('#logout').on('click', function () {
      
       firebase.auth().signOut()
           
@@ -135,7 +130,7 @@ const auth = firebase.auth();
       window.location.assign('/');
   });
   function getLocation(latlng){
-    $.post("/map/location", latlng)
+    $.post('/map/location', latlng)
     console.log(latlng);
   };
 
@@ -152,7 +147,7 @@ const auth = firebase.auth();
 
   // A function for creating an author. Calls getAuthors upon completion
   function upsertAuthor(authorData) {
-    $.post("/api/authors", authorData)
+    $.post('/api/authors', authorData)
       .then(getAuthors);
   }
   */
