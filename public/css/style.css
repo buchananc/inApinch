@@ -28,13 +28,23 @@ body {
     margin-left: 20px;
 }
 
-/* .log-section {
-    background-color: #fff;
-    padding: 40px;
-    margin: 30px 40px;
-    border-radius: 20px;
-} */
+#nav-search {
+    width: 25vw;
+    border-radius: 50px;
+}
 
+#search-btn-icon { 
+    margin: 0 5px; 
+    font-size: 1.5em;
+    color: #fff; 
+    cursor: pointer;    
+}
+
+#dropdownMenuLink {
+    margin-left: 30px;
+    color: #fff;
+    height: 100%;
+}
 
 .form-header {
     color: #737fca;
@@ -63,64 +73,32 @@ body {
 }
 
 /* CANDACE ADDED */
-
-div #log-section .col-lg-3 {
-    border: transparent;
-}
-
-.main-div,
-.signup-div,
-.loggedin-div {
-    width: 35%;
-    margin: 0px auto;
-    margin-top: 150px;
-    padding: 20px;
-    display: none;
-    border-radius: 20px;
-    border: transparent;
-}
-
-.main-div,
-.signup-div,
-input {
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.main-div {
     background: #fff;
-    padding: 15px;
-    outline: none;
-    width: 100%;
-    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    margin-left: 10%;
+    margin-top: 10vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s ease;
 }
 
-.main-div,
-.signup-div,
-input:focus {
-    border: 1px solid #777;
+.main-div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    
 }
 
-.main-div button,
-.loggedin-div button,
-.signup-div button {
-    background: #a7b2fc;
-    color: #fff;
-    border: 1px solid #6d7bd4;
-    border-radius: 5px;
-    padding: 10px;
-    display: block;
-    width: 100%;
-    transition: 0.3s;
-    margin-bottom: 5px;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
+.main-div button:focus,
+.main-div button:active {
+    outline: 0;
 }
 
 .main-div button:hover,
-.loggedin-div button:hover,
-.signup-div button:hover {
+.loggedin-div button:hover, {
     background: #fff;
     color: #a7b2fc;
-    border: 1px solid #6d7bd4;
+    border: 1px solid #6d7bd4;  
     cursor: pointer;
 }
 

@@ -14,6 +14,9 @@
     <!-- RateYo style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
+    <!-- ICONIC icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+
     <!-- linking local css -->
     <link rel="stylesheet" href="./css/style.css">
 
@@ -28,13 +31,22 @@
             <img src="./images/Logo.svg" alt="logo" id="logo">
         </a>
         <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control" id="nav-search" type="search" placeholder="Search" aria-label="Search">
+            <span class="oi oi-magnifying-glass" id="search-btn-icon"></span>
+
+            <div class="dropdown show">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Username
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" id="sign-out" href="#">Sign Out</a>
+                </div>
+            </div>
         </form>
     </nav>
 
     <!-- MAIN SIGN IN DIV -->
-    <div class="col-lg-3" id="log-section">
+    <div class="col-md-3 col-lg-4" id="log-section">
         <div id="main_div" class="main-div">
             <h4 class="form-header">Sign In</h4>
 
