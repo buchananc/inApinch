@@ -72,22 +72,24 @@ body {
     color: #737fca;
 }
 
-/* CANDACE ADDED */
+/* CANDACE ADDED, Nataliia edited :)*/
 .main-div {
     background: #fff;
     padding: 20px;
     border-radius: 15px;
-    margin-left: 10%;
-    margin-top: 10vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     transition: all 0.5s ease;
     position: relative;
+    position: absolute;
+    top: 20%;
+    left: 4%;
+    z-index: 5;
+    width: 28%;
 }
 
 .main-div:hover {
     transform: translateY(-5px);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
-    
 }
 
 .main-div button:focus,
@@ -101,6 +103,20 @@ body {
     color: #a7b2fc;
     border: 1px solid #6d7bd4;  
     cursor: pointer;
+}
+
+#location-btn {
+    position: absolute;
+    bottom: 20%;
+    right: 10%;
+    z-index: 5;
+}
+
+#pinModal {
+    position: absolute;
+    bottom: 15%;
+    right: 10%;
+    z-index: 5;
 }
 
 /* in rating modal */
