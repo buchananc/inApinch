@@ -3,3 +3,6 @@ node_modules
 config.json
 .DS_Store
 config.json.local
+mapExample.html
+style-map.css
+app-map.js
