@@ -284,6 +284,8 @@ $(document).ready(function () {
                 $('#signupDiv').modal('hide');
                 $('#user_div').hide();
                 $('#main_div').hide();
+                // Render userName in the navbar
+                $('#dropdownMenuLink').text(authUser.userName);
             } else {
                 $('#exampleModal').modal();
                 console.log(authUser.errMessage);
