@@ -6,3 +6,5 @@ config.json.local
 mapExample.html
 style-map.css
 app-map.js
+rating.js
+rating.html

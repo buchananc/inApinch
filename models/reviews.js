@@ -11,11 +11,8 @@ module.exports = function(sequelize, DataTypes){
         submittedBy: {
             type: DataTypes.STRING,
             allowNull: true
-        },
-        // restRoom: {
-        //     type: DataTypes.Integer,
-        //     allowNull: true
-        // }
+        }
+
     });
 
     Reviews.associate = function(models){
