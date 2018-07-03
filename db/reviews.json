@@ -1,0 +1,32 @@
+[
+    {
+      "remarks": "Needs a lot of work around the sink",
+      "starRating": 2,
+      "submittedBy": "TestUser1",
+      "PottyId": -1
+    },
+    {
+      "remarks": "I could spend hours in here",
+      "starRating": 5,
+      "submittedBy": "TestUser2",
+      "PottyId": -1
+    },
+    {
+      "remarks": "Our barn has less crap on the floor",
+      "starRating": 1,
+      "submittedBy": "TestUser3",
+      "PottyId": -1
+    },
+    {
+      "remarks": "No soap but clean",
+      "starRating": 3,
+      "submittedBy": "TestUser4",
+      "PottyId": -1
+    },
+    {
+      "remarks": "commode moves and so does the floor",
+      "starRating": 2,
+      "submittedBy": "TestUser2",
+      "PottyId": -1
+    }
+]

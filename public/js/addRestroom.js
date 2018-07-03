@@ -1,7 +1,4 @@
-export {
-    addRestroom
-};
-function addRestroom(restroom) {
+module.exports = function addRestroom(restroom) {
 
     console.log(`DEBUG - before post ${JSON.stringify(restroom)}`);
 
