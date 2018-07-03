@@ -288,9 +288,6 @@
         </div>
     </div>
 
-    <!-- RateYo CDN (used for stars in rating modal) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- !!! Do Not use a SLIM version of jquery it causes express not to work !!! -->
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -299,9 +296,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
 
+    <!-- RateYo CDN (used for stars in rating modal) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
+    <!-- Async defer was not testing well on a MAC
     <script async defer
+    -->
+    <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJesWQEpHZD5upRYHzyhWIZ26JaHxOM8g&callback=initMap&libraries=places">
     </script>
     <script src="./js/add-location.js"></script>
