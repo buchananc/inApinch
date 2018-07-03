@@ -36,19 +36,21 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
+            getLocation(myLatLng);
             infoWindow.setPosition(myLatLng);
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(myLatLng);
         }, function () {
             handleLocationError(true, infoWindow, map.getCenter());
+        
         });
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
+        getLocation(myLatLng);
     }
-
+   
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -115,7 +117,7 @@ function addMarkerUniqID(marker, ID) {
         });
     });
 }
-
+var restroomArray = [];
 function getAllRestRooms() {
     $.get('/api/allRestRooms', function (restRooms) {
         console.log(`DEBUG - getAllRestRooms() - # of Rest Rooms = ${restRooms.length}`);
@@ -123,7 +125,37 @@ function getAllRestRooms() {
     });
 };
 
-
+function getLocation(latlng) {
+    $.post("/map/gasStations", latlng, function (data){
+        if (data){
+            console.log(data)
+            for(var i = 0; i < data.length; i ++){
+            restroomArray.push({
+                name: data[i].name,
+                lat: data[i].geometry.location.lat,
+                lng: data[i].geometry.location.lng,
+                zIndex: 1
+            });
+        }
+        }
+    })
+  
+  
+  $.post('/map/restaurant', latlng, function (data) {
+    if (data){
+        console.log(data)
+        for(var i = 0; i < data.length; i ++){
+        restroomArray.push({
+            name: data[i].name,
+            lat: data[i].geometry.location.lat,
+            lng: data[i].geometry.location.lng,
+            zIndex: 1
+        });
+    }
+    setTimeout(function(){setMarkers(map, restroomArray)}, 50);
+    }
+  }) 
+};  
 //--------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------
 $(document).ready(function () {
