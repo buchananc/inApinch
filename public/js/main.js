@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------------------------------
 // Global variables
 //-----------------------------------------------------------------------------------------------------
+import {addRestroom} from './addRestroom.js';
 let authUser = {                                 // authorized User's info
     email: '',
     password: '',
@@ -84,36 +85,6 @@ function initMap() {
         }
     });
    
-}
-
-function addRestroom( restroom ) {
-
-    console.log(`DEBUG - before post ${JSON.stringify(restroom)}`);
-
-    //
-    // TODO:  add modal logic to create a restroom review
-    //
-    $.post('/api/addRestroom', restroom, (dbRec) => {
-        console.log('DEBUG - add restroom to db');
-        console.log( dbRec );
-        let newRestroom = {    // TODO there has to be a better way
-            id: dbRec.id,
-            name: dbRec.name,
-            lat: parseFloat(dbRec.lat),
-            lng: parseFloat(dbRec.lng),
-            zIndex: parseInt(dbRec.zIndex)
-        }
-        console.log( newRestroom );
-        // ToDo:
-        // create funciton to add to array of restrooms
-        addNewMarker( map, newRestroom );
-    });
-
-        //
-        // TODO:  seemed odd to move the map center location ... but may make sense once the modal logic is added
-        //
-        // map.panTo( event.latLng );
-
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -354,6 +325,8 @@ $(document).ready(function () {
 
     //when user click 'save' button, response will print (still not json obj)
     $('#updateRatingBtn').click(function () {
+        //api call
+        //update our database
         $('#ratingModal').modal('hide');
         //uncomment restroomId and locationRating once they are connected to db
         // var restroomId = $('#ratingModal #locationName').val().trim();
@@ -362,8 +335,45 @@ $(document).ready(function () {
         var locationRating = $('#ratingModal #rating_input');
         var comments = $('#ratingModal #commentBox');
         //prints to DOM
+        $.post('/api/addReview', // url
+            {
+                starRating: locationRating,
+                remarks: comments,
+            }, // data to be submit
+            function (data, status, jqXHR) {
+                console.log(`${status} ${data}`);
+            })
         // $('#result').html(comments + " " + locationRating + " " + userUsername + " " + restroomId);
         console.log(locationRating + " " + comments);
     });
+
+
+    //Alan's code:
+    // $(function () {
+    //     //Star rating function
+    //     $("#rateYo").rateYo({
+    //         onSet: function (rating, rateYoInstance) {
+    //             //gets user rating
+    //             rating = Math.ceil(rating);
+    //             $(this).parent().parent().data(`rating`, rating);
+    //             console.log(this);
+
+    //             $('#rating_input').val(rating); //setting up rating value to hidden field
+    //             // alert("Rating is set to: " + rating);
+    //             console.log("User rating: " + rating);
+    //         }
+    //     });
+
+    //     $("#updateRatingBtn").on("click", function (event) {
+    //         //Get user comment
+    //         var comment = $("#commentBox").val();
+    //         var reviewObj = {
+    //           comment: comment,
+    //           rating = $(this).parent().data(`rating`);
+    //         }
+    //         console.log(reviewObj);
+    //         // add in whatever you need to do with it. Maybe save it ina database?  Maybe just passing it to the DOM? 
+    //     });
+    // });
 
 });

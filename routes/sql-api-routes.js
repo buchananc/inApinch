@@ -26,4 +26,10 @@ module.exports = function (app) {
         });
     });
 
+    app.post('/api/addReview', function (req, res) {
+        db.Reviews.create(req.body).then(function (dbPost) {
+            res.json(dbPost);
+        });
+    });
+
 };
