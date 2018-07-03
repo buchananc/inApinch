@@ -14,10 +14,6 @@ firebase.initializeApp(config);
 const auth = firebase.auth();
 // const usersRef = firebase.database().ref('/users');
 
-
-const email = 'testtaw1@gmail.com'
-const pass = 'generic';
-
 module.exports = function(app) {
 
     app.post('/api/authCreateUser', function(req, res) {
