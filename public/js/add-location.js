@@ -27,27 +27,19 @@ $("#add-restroom").on("click", function () {
         queryString += state + ",+";
         queryString += zip;
 
-        var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + queryString + "&key=AIzaSyDekGM5R8k_3h-e_HECVFxKXD-3Tf7-MAI"
-        console.log(queryURL);
-
-        // Transform address into Latitude and Longitude
-        $.ajax({
-            url: queryURL,
-            type: "GET",
-        }).then(function (response) {
-            var geodata = response.results;
-            console.log(geodata);
-            var geocode = geodata[0].geometry.location;
-            var lat = geocode.lat;
-            var lng = geocode.lng;
-
+        $.post('/map/location', queryString, function(data){
+            if(data){
+                var geocode = data[0].geometry.location;
+                var lat = geocode.lat;
+                var lng = geocode.lng;
+            }
             var newRestroom = {
                 restroomName: name,
                 lat: lat,
                 lng: lng
             };
-            console.log(newRestroom);   
-        });
+            console.log(newRestroom); 
+        });  
 
     } else {
         console.log("Error occured")
