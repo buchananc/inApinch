@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------------------------------
-// Global variable for the client user's info
+// Global variables
 //-----------------------------------------------------------------------------------------------------
-let authUser = {
+let authUser = {                                 // authorized User's info
     email: '',
     password: '',
     userName: '',
@@ -10,12 +10,14 @@ let authUser = {
     authToken: ''
 };
 
+var restroomArray = [];                          // main array of known restrooms 
+
+var map, infoWindow, service;                    // google map data
 
 //--------------------------------------------------------------------------------------------------
 //  map functions
 //--------------------------------------------------------------------------------------------------
 getAllRestRooms();
-var map, infoWindow;
 
 function initMap() {
     let myLatLng = {
@@ -27,7 +29,8 @@ function initMap() {
         center: myLatLng,
         zoom: 11
     });
-    infoWindow = new google.maps.InfoWindow;
+    infoWindow = new google.maps.InfoWindow();
+    service = new google.maps.places.PlacesService(map);
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -50,7 +53,67 @@ function initMap() {
         handleLocationError(false, infoWindow, map.getCenter());
         getLocation(myLatLng);
     }
+
+    //
+    // Add listner to capture map location click events that are not know restroom locations
+    //
+    map.addListener('click', event => {
+        let restroom = {
+            name: "",
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng(),
+            zIndex: 1
+        }
+    console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
+
+        //
+        // Determine if the user clicked on a known google map "place" 
+        //
+        console.log(`DEBUG - place id: ${event.placeId}`);
+        if (event.placeId) {
+            service.getDetails( {placeId: event.placeId}, (place, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    console.log(`DEBUG - place name: ${place.name}`);
+                    restroom.name = place.name;
+                }
+                addRestroom( restroom );
+            });
+        }
+        else {
+            addRestroom( restroom );
+        }
+    });
    
+}
+
+function addRestroom( restroom ) {
+
+    console.log(`DEBUG - before post ${JSON.stringify(restroom)}`);
+
+    //
+    // TODO:  add modal logic to create a restroom review
+    //
+    $.post('/api/addRestroom', restroom, (dbRec) => {
+        console.log('DEBUG - add restroom to db');
+        console.log( dbRec );
+        let newRestroom = {    // TODO there has to be a better way
+            id: dbRec.id,
+            name: dbRec.name,
+            lat: parseFloat(dbRec.lat),
+            lng: parseFloat(dbRec.lng),
+            zIndex: parseInt(dbRec.zIndex)
+        }
+        console.log( newRestroom );
+        // ToDo:
+        // create funciton to add to array of restrooms
+        addNewMarker( map, newRestroom );
+    });
+
+        //
+        // TODO:  seemed odd to move the map center location ... but may make sense once the modal logic is added
+        //
+        // map.panTo( event.latLng );
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -78,30 +141,32 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 //-------------------------------------------------------------------------------------------------
 function setMarkers(map, restRooms) {
 
-    var image = {
+    console.log(`DEBUG - setMarkers() - # of Rest Rooms = ${restRooms.length}`);
+    for (var i = 0; i < restRooms.length; i++) {
+        addNewMarker( map, restRooms[i] );
+    }
+}
+
+function addNewMarker( map, restroom ) {
+    var pinForRestroom = {                           // custom restroom pin images
         url: './images/the-pin.svg',
         scaledSize: new google.maps.Size(32, 32),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(0, 32)
     };
 
-    console.log(`DEBUG - setMarkers() - # of Rest Rooms = ${restRooms.length}`);
+    var marker = new google.maps.Marker({
+        position: {
+            lat: restroom.lat,
+            lng: restroom.lng
+        },
+        map: map,
+        icon: pinForRestroom,
+        title: restroom.name,
+        zIndex: restroom.zIndex
+    });
 
-    for (var i = 0; i < restRooms.length; i++) {
-        var marker = new google.maps.Marker({
-            position: {
-                lat: restRooms[i].lat,
-                lng: restRooms[i].lng
-            },
-            map: map,
-            icon: image,
-            title: restRooms[i].name,
-            zIndex: restRooms[i].zIndex
-        });
-
-        addMarkerUniqID(marker, restRooms[i].id);
-
-    }
+    addMarkerUniqID(marker, restroom.id);
 }
 
 function addMarkerUniqID(marker, ID) {
@@ -117,7 +182,7 @@ function addMarkerUniqID(marker, ID) {
         });
     });
 }
-var restroomArray = [];
+
 function getAllRestRooms() {
     $.get('/api/allRestRooms', function (restRooms) {
         console.log(`DEBUG - getAllRestRooms() - # of Rest Rooms = ${restRooms.length}`);
@@ -130,31 +195,31 @@ function getLocation(latlng) {
         if (data){
             console.log(data)
             for(var i = 0; i < data.length; i ++){
-            restroomArray.push({
-                name: data[i].name,
-                lat: data[i].geometry.location.lat,
-                lng: data[i].geometry.location.lng,
-                zIndex: 1
-            });
-        }
+                restroomArray.push({
+                    name: data[i].name,
+                    lat: data[i].geometry.location.lat,
+                    lng: data[i].geometry.location.lng,
+                    zIndex: 1
+                });
+            }
         }
     })
   
-  
-  $.post('/map/restaurant', latlng, function (data) {
-    if (data){
-        console.log(data)
-        for(var i = 0; i < data.length; i ++){
-        restroomArray.push({
-            name: data[i].name,
-            lat: data[i].geometry.location.lat,
-            lng: data[i].geometry.location.lng,
-            zIndex: 1
-        });
-    }
-    setTimeout(function(){setMarkers(map, restroomArray)}, 50);
-    }
-  }) 
+    $.post('/map/restaurant', latlng, function (data) {
+        if (data){
+            console.log(data)
+            for(var i = 0; i < data.length; i ++){
+                restroomArray.push({
+                    name: data[i].name,
+                    lat: data[i].geometry.location.lat,
+                    lng: data[i].geometry.location.lng,
+                    zIndex: 1
+                });
+            }
+            setTimeout(function(){setMarkers(map, restroomArray)}, 50);
+        }
+    }) 
+
 };  
 //--------------------------------------------------------------------------------------------------
 $(document).ready(function () {
