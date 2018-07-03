@@ -32,8 +32,15 @@ module.exports = function (app) {
                 var restaurants = (response.json.results);
             }
             res.json(restaurants)
+        });
+    });
+    app.post('/map/location', function (req, res){
+        googleMapsClient.geocode({
+            address: JSON.stringify(req.body)
+        }, function(err, response){
+            if(!err){
+                res.json(response.json.results)
+            }
         })
-
-
     })
 }
