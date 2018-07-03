@@ -249,6 +249,8 @@ $(document).ready(function () {
                 console.log('I made it this far!');
                 $('#user_div').hide();
                 $('#main_div').hide();
+                // Render userName in the navbar
+                $('#dropdownMenuLink').text(authUser.userName);
             } else {
                 $('#exampleModal').modal();
                 console.log(authUser.errMessage);
