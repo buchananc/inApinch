@@ -5,7 +5,7 @@ var googleMapsClient = require('@google/maps').createClient({
 module.exports = function (app) {
 
     app.post('/map/gasStations', function (req, res) {
-        
+
         var lat = req.body.lat;
         var lng = req.body.lng;
         googleMapsClient.places({
@@ -20,7 +20,7 @@ module.exports = function (app) {
         })
     })
     app.post('/map/restaurant', function (req, res) {
-        
+
         var lat = req.body.lat;
         var lng = req.body.lng;
 
@@ -35,13 +35,26 @@ module.exports = function (app) {
             res.json(restaurants)
         });
     });
-    app.post('/map/location', function (req, res){
+    app.post('/map/location', function (req, res) {
         googleMapsClient.geocode({
             address: JSON.stringify(req.body)
-        }, function(err, response){
-            if(!err){
+        }, function (err, response) {
+            if (!err) {
                 res.json(response.json.results)
             }
         })
+    })
+
+
+    app.post('/map', function (req, res) {
+        googleMapsClient.geocode({
+            address: JSON.stringify(req.body)
+        }, function (err, response) {
+            if (!err) {
+                console.log(response.json.results)
+                res.json(response.json.results)
+            }
+        })
+
     })
 }

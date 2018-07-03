@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------------------------------
 // Global variables
 //-----------------------------------------------------------------------------------------------------
-import {addRestroom} from './addRestroom.js';
+// import {addRestroom} from './addRestroom.js';
 let authUser = {                                 // authorized User's info
     email: '',
     password: '',

@@ -20,15 +20,11 @@ function searchLocation() {
     console.log(location)
     $("#nav-search").val("");
 
-    var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDekGM5R8k_3h-e_HECVFxKXD-3Tf7-MAI"
-    console.log(queryURL);
+   
+    $.post('/map', location, function(response){
+        if(response){
 
-    // Get Borders for the map
-    $.ajax({
-        url: queryURL,
-        type: "GET",
-    }).then(function (response) {
-        var geodata = response.results;
+        var geodata = response;
         console.log(geodata);
         var geocode = geodata[0].geometry.bounds;
         var northEastLat = geocode.northeast.lat;
@@ -39,5 +35,6 @@ function searchLocation() {
         console.log(northEastLng)
         console.log(southwestLat)
         console.log(southwestLng)
-    });
+    };
+});
 }

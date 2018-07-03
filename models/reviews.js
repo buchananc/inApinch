@@ -12,10 +12,10 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.STRING,
             allowNull: true
         },
-        restRoom: {
-            type: DataTypes.Integer,
-            allowNull: true
-        }
+        // restRoom: {
+        //     type: DataTypes.Integer,
+        //     allowNull: true
+        // }
     });
 
     Reviews.associate = function(models){
