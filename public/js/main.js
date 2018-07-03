@@ -178,6 +178,9 @@ function addMarkerUniqID(marker, ID) {
         console.log(`DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}`);
         $.get(`/api/getRestRoom/${newInfoWindow.markerID}`, function (data) {
             console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
+            // !!! CANDY todo !!!!
+            $('#ratingModal').modal('show');
+            $('#ratingUsername').text(authUser.userName);
         });
     });
 }
