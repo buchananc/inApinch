@@ -6,7 +6,7 @@
 
 // let addRestroom = require('./addRestroom.js');
 
-let authUser = {                                 // authorized User's info
+let authUser = { // authorized User's info
     email: '',
     password: '',
     userName: '',
@@ -15,7 +15,7 @@ let authUser = {                                 // authorized User's info
     authToken: ''
 };
 
-let selectedRestroom = {                        // restroom object
+let selectedRestroom = { // restroom object
     id: -1,
     name: '',
     lat: 0.0,
@@ -25,9 +25,9 @@ let selectedRestroom = {                        // restroom object
     lastThreeRev: []
 };
 
-var restroomArray = [];                          // main array of known restrooms 
+var restroomArray = []; // main array of known restrooms 
 
-var map, infoWindow, service;                    // google map data
+var map, infoWindow, service; // google map data
 
 //--------------------------------------------------------------------------------------------------
 //  map functions
@@ -61,7 +61,7 @@ function initMap() {
             map.setCenter(myLatLng);
         }, function () {
             handleLocationError(true, infoWindow, map.getCenter());
-        
+
         });
     } else {
         // Browser doesn't support Geolocation
@@ -79,26 +79,27 @@ function initMap() {
             lng: event.latLng.lng(),
             zIndex: 1
         }
-    console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
+        console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
 
         //
         // Determine if the user clicked on a known google map "place" 
         //
         console.log(`DEBUG - place id: ${event.placeId}`);
         if (event.placeId) {
-            service.getDetails( {placeId: event.placeId}, (place, status) => {
+            service.getDetails({
+                placeId: event.placeId
+            }, (place, status) => {
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                     console.log(`DEBUG - place name: ${place.name}`);
                     restroom.name = place.name;
                 }
-                addRestroom( restroom );
+                addRestroom(restroom);
             });
-        }
-        else {
-            addRestroom( restroom );
+        } else {
+            addRestroom(restroom);
         }
     });
-   
+
 }
 
 
@@ -153,12 +154,12 @@ function setMarkers(map, restRooms) {
 
     console.log(`DEBUG - setMarkers() - # of Rest Rooms = ${restRooms.length}`);
     for (var i = 0; i < restRooms.length; i++) {
-        addNewMarker( map, restRooms[i] );
+        addNewMarker(map, restRooms[i]);
     }
 }
 
-function addNewMarker( map, restroom ) {
-    var pinForRestroom = {                           // custom restroom pin images
+function addNewMarker(map, restroom) {
+    var pinForRestroom = { // custom restroom pin images
         url: './images/the-pin.svg',
         scaledSize: new google.maps.Size(32, 32),
         origin: new google.maps.Point(0, 0),
@@ -190,7 +191,6 @@ function addMarkerUniqID(marker, ID) {
         $.get(`/api/getRestRoom/${newInfoWindow.markerID}`, function (data) {
             console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
             $('#review-modal').modal('show');
-            //TODO: Set params
             selectedRestroom.id = data.id;
             selectedRestroom.name = data.name;
             selectedRestroom.lat = data.lat;
@@ -200,6 +200,14 @@ function addMarkerUniqID(marker, ID) {
             selectedRestroom.avgRating = 5;
             //TODO: get last 3 reviews from db
             selectedRestroom.lastThreeRev.push("coming soon");
+
+            //setting restroom location name
+            $('#restroomTitle').text(selectedRestroom.name);
+            
+            //Candy TODO: star rating average
+            //http://theme.ranpariyalab.com/Rating.html
+            $("#rateYoStars").rateYo();
+            
         });
     });
 }
@@ -212,10 +220,10 @@ function getAllRestRooms() {
 };
 
 function getLocation(latlng) {
-    $.post("/map/gasStations", latlng, function (data){
-        if (data){
+    $.post("/map/gasStations", latlng, function (data) {
+        if (data) {
             console.log(data)
-            for(var i = 0; i < data.length; i ++){
+            for (var i = 0; i < data.length; i++) {
                 restroomArray.push({
                     name: data[i].name,
                     lat: data[i].geometry.location.lat,
@@ -225,11 +233,11 @@ function getLocation(latlng) {
             }
         }
     })
-  
+
     $.post('/map/restaurant', latlng, function (data) {
-        if (data){
+        if (data) {
             console.log(data)
-            for(var i = 0; i < data.length; i ++){
+            for (var i = 0; i < data.length; i++) {
                 restroomArray.push({
                     name: data[i].name,
                     lat: data[i].geometry.location.lat,
@@ -237,11 +245,13 @@ function getLocation(latlng) {
                     zIndex: 1
                 });
             }
-            setTimeout(function(){setMarkers(map, restroomArray)}, 50);
+            setTimeout(function () {
+                setMarkers(map, restroomArray)
+            }, 50);
         }
-    }) 
+    })
 
-};  
+};
 //--------------------------------------------------------------------------------------------------
 $(document).ready(function () {
     ///////////////////////////////////////////////////////
@@ -328,23 +338,25 @@ $(document).ready(function () {
         });
     });
 
-    ///////////////////////////////////////////////////////
-    //Review Modal Content (pulling info from DB)
-    ///////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////
+    // //Review Modal Content (pulling info from DB)
+    // ///////////////////////////////////////////////////////
 
 
-    //star rating
+    // //#restroomTitle
+    // $('#restroomTitle').text(selectedRestroom.name);
+    // //star rating
 
-    $("#rateYoStars").rateYo({
-        rating: "50%",
-        precision: 0
+    // $("#rateYoStars").rateYo({
+    //     rating: "50%",
+    //     precision: 0
 
-    });
-    // Getter
-    var normalFill = $("#rateYoStars").rateYo("option", "rating"); //returns 50
+    // });
+    // // Getter
+    // var normalFill = $("#rateYoStars").rateYo("option", "rating"); //returns 50
 
-    // Setter
-    $("#rateYoStars").rateYo("option", "rating", 5); //returns a jQuery Element
+    // // Setter
+    // $("#rateYoStars").rateYo("option", "rating", 5); //returns a jQuery Element
 
 
 
@@ -387,7 +399,7 @@ $(document).ready(function () {
         //api call
         //update our database
         $('#ratingModal').modal('hide');
-        
+
         //uncomment restroomId and locationRating once they are connected to db
         // var restroomId = $('#ratingModal #locationName').val().trim();
         // var userUsername = $('#ratingModal #ratingUsername').val().trim();
