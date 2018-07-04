@@ -54,7 +54,8 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            getLocation(myLatLng);
+            console.log(myLatLng)
+            // getLocation(myLatLng);
             infoWindow.setPosition(myLatLng);
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
@@ -66,7 +67,7 @@ function initMap() {
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
-        getLocation(myLatLng);
+        // getLocation(myLatLng);
     }
 
     //
@@ -89,6 +90,7 @@ function initMap() {
             service.getDetails({
                 placeId: event.placeId
             }, (place, status) => {
+
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                     console.log(`DEBUG - place name: ${place.name}`);
                     restroom.name = place.name;
@@ -159,7 +161,10 @@ function setMarkers(map, restRooms) {
 }
 
 function addNewMarker(map, restroom) {
+
+
     var pinForRestroom = { // custom restroom pin images
+
         url: './images/the-pin.svg',
         scaledSize: new google.maps.Size(32, 32),
         origin: new google.maps.Point(0, 0),
@@ -219,39 +224,39 @@ function getAllRestRooms() {
     });
 };
 
-function getLocation(latlng) {
-    $.post("/map/gasStations", latlng, function (data) {
-        if (data) {
-            console.log(data)
-            for (var i = 0; i < data.length; i++) {
-                restroomArray.push({
-                    name: data[i].name,
-                    lat: data[i].geometry.location.lat,
-                    lng: data[i].geometry.location.lng,
-                    zIndex: 1
-                });
-            }
-        }
-    })
 
-    $.post('/map/restaurant', latlng, function (data) {
-        if (data) {
-            console.log(data)
-            for (var i = 0; i < data.length; i++) {
-                restroomArray.push({
-                    name: data[i].name,
-                    lat: data[i].geometry.location.lat,
-                    lng: data[i].geometry.location.lng,
-                    zIndex: 1
-                });
-            }
-            setTimeout(function () {
-                setMarkers(map, restroomArray)
-            }, 50);
-        }
-    })
+// function getLocation(latlng) {
+//     $.post("/map/gasStations", latlng, function (data) {
+//         if (data) {
+//             console.log(data)
+//             for (var i = 0; i < data.length; i++) {
+//                 restroomArray.push({
+//                     name: data[i].name,
+//                     lat: data[i].geometry.location.lat,
+//                     lng: data[i].geometry.location.lng,
+//                     zIndex: 1
+//                 });
+//             }
+//         }
+//     })
 
-};
+//     $.post('/map/restaurant', latlng, function (data) {
+//         if (data) {
+//             console.log(data)
+//             for (var i = 0; i < data.length; i++) {
+//                 restroomArray.push({
+//                     name: data[i].name,
+//                     lat: data[i].geometry.location.lat,
+//                     lng: data[i].geometry.location.lng,
+//                     zIndex: 1
+//                 });
+//             }
+//             setTimeout(function () { setMarkers(map, restroomArray) }, 50);
+//         }
+//     })
+
+// };
+
 //--------------------------------------------------------------------------------------------------
 $(document).ready(function () {
     ///////////////////////////////////////////////////////
@@ -419,6 +424,43 @@ $(document).ready(function () {
         console.log(locationRating + " " + comments);
     });
 
+// Listening to Enter keypress
+$('#nav-search').keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13') {
+        searchLocation();
+    }
+});
+
+// Listening to Search-icon click
+$("#search-btn-icon").on("click", function () {
+    searchLocation();
+})
+
+// Search function
+function searchLocation() {
+    // Prevent reloading the page
+    event.preventDefault();
+    // Get value forn the input
+    var location = $("#nav-search").val().trim().replace(/ /g, "+");
+    console.log(location)
+    $("#nav-search").val("");
+
+   
+    $.post('/map', location, function(response){
+        if(response){
+
+        var geodata = response;
+        console.log(geodata);
+        var geocode = geodata[0].geometry.location;
+        var lat = geocode.lat;
+        var lng = geocode.lng;
+        console.log(lat)
+        console.log(lng)
+       map.setCenter(new google.maps.LatLng(lat, lng))
+    };
+});
+}
 
     //Alan's code:
     // $(function () {
