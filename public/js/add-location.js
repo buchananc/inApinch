@@ -1,3 +1,12 @@
+$("#location-btn").on("click", function () {
+    if (authUser.loggedIn) {
+        $('#locationModal').modal('show')
+        
+    } else {
+        alert("You must be logged in to add a new Restroom!")
+    }
+})
+
 // Add Restroom click event
 $("#add-restroom").on("click", function () {
     // Grab radio button value
