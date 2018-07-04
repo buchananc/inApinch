@@ -14,6 +14,16 @@ let authUser = {                                 // authorized User's info
     authToken: ''
 };
 
+let selectedRestroom = {                        // restroom object
+    id: -1,
+    name: '',
+    lat: 0.0,
+    lng: 0.0,
+    zIndex: -1,
+    avgRating: -1,
+    lastThreeRev: []
+};
+
 var restroomArray = [];                          // main array of known restrooms 
 
 var map, infoWindow, service;                    // google map data
@@ -178,9 +188,17 @@ function addMarkerUniqID(marker, ID) {
         console.log(`DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}`);
         $.get(`/api/getRestRoom/${newInfoWindow.markerID}`, function (data) {
             console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
-            // !!! CANDY todo !!!!
-            $('#ratingModal').modal('show');
-            $('#ratingUsername').text(authUser.userName);
+            $('#review-modal').modal('show');
+            //TODO: Set params
+            selectedRestroom.id = data.id;
+            selectedRestroom.name = data.name;
+            selectedRestroom.lat = data.lat;
+            selectedRestroom.lng = data.lng;
+            selectedRestroom.zIndex = data.zIndex;
+            //TODO: get avg rating from db
+            selectedRestroom.avgRating = 5;
+            //TODO: get last 3 reviews from db
+            selectedRestroom.lastThreeRev.push("coming soon");
         });
     });
 }
@@ -333,9 +351,15 @@ $(document).ready(function () {
     //User click btn event to go to rating modal
     ///////////////////////////////////////////////////////
     $('#addReviewBtn').on('click', e => {
+        //right here 
         $('#ratingModal').modal('show');
         $('#review-modal').modal('hide');
         $('#locationModal').modal('hide');
+
+        $('#ratingUsername').text(authUser.userName);
+        $('#rateThisTitle').text(selectedRestroom.name);
+
+        //TODO: Need a global variable for restroom name to reference for #rateThisTitle
     });
 
 
@@ -358,18 +382,18 @@ $(document).ready(function () {
 
     });
 
-    //when user click 'save' button, response will print (still not json obj)
     $('#updateRatingBtn').click(function () {
         //api call
         //update our database
         $('#ratingModal').modal('hide');
+        
         //uncomment restroomId and locationRating once they are connected to db
         // var restroomId = $('#ratingModal #locationName').val().trim();
         // var userUsername = $('#ratingModal #ratingUsername').val().trim();
 
         var locationRating = $('#ratingModal #rating_input');
         var comments = $('#ratingModal #commentBox');
-        //prints to DOM
+        //TODO: Todd knows
         $.post('/api/addReview', // url
             {
                 starRating: locationRating,
