@@ -1,11 +1,6 @@
 //-----------------------------------------------------------------------------------------------------
 // Global variables
 //-----------------------------------------------------------------------------------------------------
-
-//import {addRestroom} from './addRestroom.js';
-
-// let addRestroom = require('./addRestroom.js');
-
 let authUser = { // authorized User's info
     email: '',
     password: '',
@@ -29,357 +24,59 @@ var restroomArray = []; // main array of known restrooms
 
 var map, infoWindow, service; // google map data
 
-//--------------------------------------------------------------------------------------------------
-//  map functions
-//--------------------------------------------------------------------------------------------------
+//
+// Start creating all known map locations as soon as possible
+//
 getAllRestRooms();
 
-function initMap() {
-    let myLatLng = {
-        lat: 35.22888353357024,
-        lng: -80.83476207120572
-    };
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: myLatLng,
-        zoom: 11
-    });
-    infoWindow = new google.maps.InfoWindow();
-    service = new google.maps.places.PlacesService(map);
-
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            myLatLng = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            console.log(myLatLng)
-            // getLocation(myLatLng);
-            infoWindow.setPosition(myLatLng);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(myLatLng);
-        }, function () {
-            handleLocationError(true, infoWindow, map.getCenter());
-
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-        // getLocation(myLatLng);
-    }
-
-    //
-    // Add listner to capture map location click events that are not know restroom locations
-    //
-    map.addListener('click', event => {
-        let restroom = {
-            name: "",
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-            zIndex: 1
-        }
-        console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
-
-        //
-        // Determine if the user clicked on a known google map "place" 
-        //
-        console.log(`DEBUG - place id: ${event.placeId}`);
-        if (event.placeId) {
-            service.getDetails({
-                placeId: event.placeId
-            }, (place, status) => {
-
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    console.log(`DEBUG - place name: ${place.name}`);
-                    restroom.name = place.name;
-                }
-                addRestroom(restroom);
-            });
-        } else {
-            addRestroom(restroom);
-        }
-    });
-
-}
-
-
-function addRestroom(restroom) {
-
-    console.log(`DEBUG - before post ${JSON.stringify(restroom)}`);
-
-    //
-    // TODO:  add modal logic to create a restroom review
-    //
-    $.post('/api/addRestroom', restroom, (dbRec) => {
-        console.log('DEBUG - add restroom to db');
-        console.log(dbRec);
-        let newRestroom = { // TODO there has to be a better way
-            id: dbRec.id,
-            name: dbRec.name,
-            lat: parseFloat(dbRec.lat),
-            lng: parseFloat(dbRec.lng),
-            zIndex: parseInt(dbRec.zIndex)
-        }
-        console.log(newRestroom);
-        // ToDo:
-        // create funciton to add to array of restrooms
-        addNewMarker(map, newRestroom);
-    });
-};
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    ////////////////////////////////////////////////////////////////////////////////////
-    // ToDo - remove this due to it being placed in the middle of the screen
-    //         need to determine where to position this
-    ///        or set a timeout that will clear it after a few seconds of display
-    ////////////////////////////////////////////////////////////////////////////////////
-    //infoWindow.setPosition(pos);
-    //infoWindow.setContent(browserHasGeolocation ?
-    //                      'Error: The Geolocation service failed.' :
-    //                      'Error: Your browser doesn\'t support geolocation.');
-    //infoWindow.open(map);
-};
-
-
-//-------------------------------------------------------------------------------------------------
-// Adds markers to the map.
-//
-// Marker sizes are expressed as a Size of X,Y where the origin of the image
-// (0,0) is located in the top left of the image.
-//
-// Origins, anchor positions and coordinates of the marker increase in the X
-// direction to the right and in the Y direction down.
-//-------------------------------------------------------------------------------------------------
-function setMarkers(map, restRooms) {
-
-    console.log(`DEBUG - setMarkers() - # of Rest Rooms = ${restRooms.length}`);
-    for (var i = 0; i < restRooms.length; i++) {
-        addNewMarker(map, restRooms[i]);
-    }
-}
-
-function addNewMarker(map, restroom) {
-
-
-    var pinForRestroom = { // custom restroom pin images
-
-        url: './images/the-pin.svg',
-        scaledSize: new google.maps.Size(32, 32),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(0, 32)
-    };
-
-    var marker = new google.maps.Marker({
-        position: {
-            lat: restroom.lat,
-            lng: restroom.lng
-        },
-        map: map,
-        icon: pinForRestroom,
-        title: restroom.name,
-        zIndex: restroom.zIndex
-    });
-
-    addMarkerUniqID(marker, restroom.id);
-}
-
-function addMarkerUniqID(marker, ID) {
-    var newInfoWindow = new google.maps.InfoWindow({
-        markerID: ID
-    });
-
-    marker.addListener('click', function () {
-        // newInfoWindow.open( marker.get('map'), marker);
-        console.log(`DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}`);
-        $.get(`/api/getRestRoom/${newInfoWindow.markerID}`, function (data) {
-            console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
-            $('#review-modal').modal('show');
-            selectedRestroom.id = data.id;
-            selectedRestroom.name = data.name;
-            selectedRestroom.lat = data.lat;
-            selectedRestroom.lng = data.lng;
-            selectedRestroom.zIndex = data.zIndex;
-            //TODO: get avg rating from db
-            selectedRestroom.avgRating = 5;
-            //TODO: get last 3 reviews from db
-            selectedRestroom.lastThreeRev.push("coming soon");
-
-            //setting restroom location name
-            $('#restroomTitle').text(selectedRestroom.name);
-            
-            //Candy TODO: star rating average
-            //http://theme.ranpariyalab.com/Rating.html
-            $("#rateYoStars").rateYo();
-            
-        });
-    });
-}
-
-function getAllRestRooms() {
-    $.get('/api/allRestRooms', function (restRooms) {
-        console.log(`DEBUG - getAllRestRooms() - # of Rest Rooms = ${restRooms.length}`);
-        setMarkers(map, restRooms);
-    });
-};
-
-
-// function getLocation(latlng) {
-//     $.post("/map/gasStations", latlng, function (data) {
-//         if (data) {
-//             console.log(data)
-//             for (var i = 0; i < data.length; i++) {
-//                 restroomArray.push({
-//                     name: data[i].name,
-//                     lat: data[i].geometry.location.lat,
-//                     lng: data[i].geometry.location.lng,
-//                     zIndex: 1
-//                 });
-//             }
-//         }
-//     })
-
-//     $.post('/map/restaurant', latlng, function (data) {
-//         if (data) {
-//             console.log(data)
-//             for (var i = 0; i < data.length; i++) {
-//                 restroomArray.push({
-//                     name: data[i].name,
-//                     lat: data[i].geometry.location.lat,
-//                     lng: data[i].geometry.location.lng,
-//                     zIndex: 1
-//                 });
-//             }
-//             setTimeout(function () { setMarkers(map, restroomArray) }, 50);
-//         }
-//     })
-
-// };
-
+//--------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------
 $(document).ready(function () {
-    ///////////////////////////////////////////////////////
-    // Get elements
-    ///////////////////////////////////////////////////////
-    const userEmail = $('#userEmail'); //registered user
-    const userPassword = $('#userPassword'); //registered user
-    //--------------------------------------------------------
-    const txtUsername = $('#txtUsername'); //new user
-    const txtEmail = $('#txtEmail'); //new user
-    const txtPassword = $('#txtPassword'); //new user
-    //--------------------------------------------------------
 
     /////////////////////////////////////////////////////// 
     //Add login event
     ///////////////////////////////////////////////////////
-    $('#btnLogin').on('click', e => {
-        e.preventDefault();
-        // Get email and pass
-        authUser.email = userEmail.val();
-        authUser.password = userPassword.val();
-
-        $.post('/api/authSignIn', authUser, (validAuthUser) => {
-            authUser = validAuthUser;
-            if (authUser.loggedIn) {
-                console.log('I made it this far!');
-                $('#user_div').hide();
-                $('#main_div').hide();
-                // Render userName in the navbar
-                $('#dropdownMenuLink').text(authUser.userName);
-            } else {
-                $('#exampleModal').modal();
-                console.log(authUser.errMessage);
-            }
-        });
-
-    });
+    addLoginClickEvent( $('#btnLogin') );
 
     ///////////////////////////////////////////////////////
-    // Add login to signup event
+    // Add 'Sign Up Now' event
     ///////////////////////////////////////////////////////
-    $('#sign-up').on('click', e => {
-        $('.log-section').hide();
-        $('#signupDiv').show('slow');
-    });
-
+    addSignUpNowEvent( $('#sign-up') );
 
     ///////////////////////////////////////////////////////
-    // Add signup event
+    // Add 'Sign Up' event and create user
     ///////////////////////////////////////////////////////
-    $('#createUser').on('click', e => {
-        // Get username, email, and pass
-        authUser.email = txtEmail.val();
-        authUser.password = txtPassword.val();
-        authUser.userName = txtUsername.val().trim();
-
-        $.post('/api/authCreateUser', authUser, (validAuthUser) => {
-            authUser = validAuthUser;
-            if (authUser.loggedIn) {
-                console.log('I made it this far!');
-                $('#signupDiv').modal('hide');
-                $('#user_div').hide();
-                $('#main_div').hide();
-                // Render userName in the navbar
-                $('#dropdownMenuLink').text(authUser.userName);
-            } else {
-                $('#exampleModal').modal();
-                console.log(authUser.errMessage);
-            }
-        });
-    });
-
-    $('#btnLogout').on('click', e => {
-        $.post('/api/authSignOut', authUser, (validAuthUser) => {
-            authUser = validAuthUser;
-            window.location.assign('/');
-        });
-    });
-
-    $('#sign-out').on('click', e => {
-        $.post('/api/authSignOut', authUser, (validAuthUser) => {
-            authUser = validAuthUser;
-            window.location.assign('/');
-        });
-    });
-
-    // ///////////////////////////////////////////////////////
-    // //Review Modal Content (pulling info from DB)
-    // ///////////////////////////////////////////////////////
-
-
-    // //#restroomTitle
-    // $('#restroomTitle').text(selectedRestroom.name);
-    // //star rating
-
-    // $("#rateYoStars").rateYo({
-    //     rating: "50%",
-    //     precision: 0
-
-    // });
-    // // Getter
-    // var normalFill = $("#rateYoStars").rateYo("option", "rating"); //returns 50
-
-    // // Setter
-    // $("#rateYoStars").rateYo("option", "rating", 5); //returns a jQuery Element
-
-
+    addCreateUserEvent( $('#createUser') );
 
     ///////////////////////////////////////////////////////
-    //User click btn event to go to rating modal
+    // Add logout event for Welcome DIV
     ///////////////////////////////////////////////////////
-    $('#addReviewBtn').on('click', e => {
-        //right here 
-        $('#ratingModal').modal('show');
-        $('#review-modal').modal('hide');
-        $('#locationModal').modal('hide');
+    addLogoutEvent( $('#btnLogout') );
 
-        $('#ratingUsername').text(authUser.userName);
-        $('#rateThisTitle').text(selectedRestroom.name);
+    ///////////////////////////////////////////////////////
+    // Add logout event for Welcome DIV
+    ///////////////////////////////////////////////////////
+    addLogoutEvent( $('#sign-out') );
 
-        //TODO: Need a global variable for restroom name to reference for #rateThisTitle
-    });
+    ///////////////////////////////////////////////////////
+    // User click btn event to add a review
+    ///////////////////////////////////////////////////////
+    addReviewEvent( $('#addReviewBtn') );
 
+    ///////////////////////////////////////////////////////
+    // User decides to save the rating
+    ///////////////////////////////////////////////////////
+    saveRatingEvent( $('#updateRatingBtn') );
+
+    ///////////////////////////////////////////////////////
+    // Listening to Enter keypress while typing in search area
+    ///////////////////////////////////////////////////////
+    addSearchEnterEvent( $('#nav-search') );
+
+    ///////////////////////////////////////////////////////
+    // Listening to Search-icon click
+    ///////////////////////////////////////////////////////
+    addSearchButtonEvent( $('#search-btn-icon') )
 
     ///////////////////////////////////////////////////////
     // Rating Modal Event
@@ -399,95 +96,5 @@ $(document).ready(function () {
         }
 
     });
-
-    $('#updateRatingBtn').click(function () {
-        //api call
-        //update our database
-        $('#ratingModal').modal('hide');
-
-        //uncomment restroomId and locationRating once they are connected to db
-        // var restroomId = $('#ratingModal #locationName').val().trim();
-        // var userUsername = $('#ratingModal #ratingUsername').val().trim();
-
-        var locationRating = $('#ratingModal #rating_input');
-        var comments = $('#ratingModal #commentBox');
-        //TODO: Todd knows
-        $.post('/api/addReview', // url
-            {
-                starRating: locationRating,
-                remarks: comments,
-            }, // data to be submit
-            function (data, status, jqXHR) {
-                console.log(`${status} ${data}`);
-            })
-        // $('#result').html(comments + " " + locationRating + " " + userUsername + " " + restroomId);
-        console.log(locationRating + " " + comments);
-    });
-
-// Listening to Enter keypress
-$('#nav-search').keypress(function (event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if (keycode == '13') {
-        searchLocation();
-    }
-});
-
-// Listening to Search-icon click
-$("#search-btn-icon").on("click", function () {
-    searchLocation();
-})
-
-// Search function
-function searchLocation() {
-    // Prevent reloading the page
-    event.preventDefault();
-    // Get value forn the input
-    var location = $("#nav-search").val().trim().replace(/ /g, "+");
-    console.log(location)
-    $("#nav-search").val("");
-
-   
-    $.post('/map', location, function(response){
-        if(response){
-
-        var geodata = response;
-        console.log(geodata);
-        var geocode = geodata[0].geometry.location;
-        var lat = geocode.lat;
-        var lng = geocode.lng;
-        console.log(lat)
-        console.log(lng)
-       map.setCenter(new google.maps.LatLng(lat, lng))
-    };
-});
-}
-
-    //Alan's code:
-    // $(function () {
-    //     //Star rating function
-    //     $("#rateYo").rateYo({
-    //         onSet: function (rating, rateYoInstance) {
-    //             //gets user rating
-    //             rating = Math.ceil(rating);
-    //             $(this).parent().parent().data(`rating`, rating);
-    //             console.log(this);
-
-    //             $('#rating_input').val(rating); //setting up rating value to hidden field
-    //             // alert("Rating is set to: " + rating);
-    //             console.log("User rating: " + rating);
-    //         }
-    //     });
-
-    //     $("#updateRatingBtn").on("click", function (event) {
-    //         //Get user comment
-    //         var comment = $("#commentBox").val();
-    //         var reviewObj = {
-    //           comment: comment,
-    //           rating = $(this).parent().data(`rating`);
-    //         }
-    //         console.log(reviewObj);
-    //         // add in whatever you need to do with it. Maybe save it ina database?  Maybe just passing it to the DOM? 
-    //     });
-    // });
 
 });

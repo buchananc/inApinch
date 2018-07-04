@@ -1,6 +1,7 @@
-module.exports = function addRestroom(restroom) {
+function addRestroom(restroom) {
 
     console.log(`DEBUG - before post ${JSON.stringify(restroom)}`);
+    console.log(`DEBUG - user ${JSON.stringify(authUser)}`);
 
     //
     // TODO:  add modal logic to create a restroom review
