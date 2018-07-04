@@ -43,24 +43,27 @@ $("#add-restroom").on("click", function () {
                 var lng = geocode.lng;
             }
             var newRestroom = {
-                restroomName: name,
+                name: name,
                 lat: lat,
-                lng: lng
+                lng: lng,
+                zIndex: 1
             };
             console.log(newRestroom); 
+
+            $.post("/api/newrestrom", newRestroom, function(res){
+                if(res){
+                    console.log("made a succsessfull post request")
+                }
+                else{
+                    console.log("post request didn't happen")
+                }
+            }).then($( "#close-modal" ).trigger( "click" ));
         });  
 
     } else {
         console.log("Error occured")
     }
 
-    // $.post("http://localhost/api/newrestrom/", newRestroom, function(res){
-    //     if(res === true){
-    //         console.log("made a succsessfull post request")
-    //     }
-    //     else{
-    //         console.log("post request didn't happen")
-    //     }
-    // }).then($( "#close-modal" ).trigger( "click" ));
+   
 
 });
