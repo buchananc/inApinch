@@ -32,4 +32,10 @@ module.exports = function (app) {
         });
     });
 
+    app.post('/api/newrestrom', function(req, res){
+        db.Potty.create(req.body).then( function(dbPost) {
+            res.json(dbPost);
+        });
+    })
+
 };
