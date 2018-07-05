@@ -11,9 +11,6 @@ $("#location-btn").on("click", function () {
 // Add Restroom click event
 $("#add-restroom").on("click", function () {
 
-    // Define a variable for new location
-    var newRestroom = {};
-
     // Take values from the form
     var name = $("#name_field").val().trim();
     var street = $("#street_id").val().trim().replace(/ /g, "+");
@@ -27,6 +24,8 @@ $("#add-restroom").on("click", function () {
     queryString += state + ",+";
     queryString += zip;
 
+    console.log( `DEBUG - add address before post ` );
+
     $.post('/map/location', queryString, function (data) {
         if (data) {
             var geocode = data[0].geometry.location;
@@ -39,20 +38,23 @@ $("#add-restroom").on("click", function () {
             lng: lng,
             zIndex: 1
         };
-        console.log(newRestroom);
+        console.log( `DEBUG - add address: ${JSON.stringify(newRestroom)}` );
 
-        $.post("/api/newRestroom", newRestroom, function (res) {
-            if (res) {
-                console.log("made a succsessfull post request")
-            } else {
-                console.log("post request didn't happen")
-            }
-        }).then(function(){
-            $('#locationModal').modal('hide');
-            clearAddressForm();
-        })
+        // this will add the marker to the map and write to the db
+        addRestroom( newRestroom );
+
+        $('#locationModal').modal('hide');
+        clearAddressForm();
     });
 });
+
+function addDropPinEvent( jq_dropPin ) {
+
+    jq_dropPin.on("click", function () {
+        $('#locationModal').modal('hide');
+        dropPinOnMapEnabled = true;
+    });
+};
 
 // Function to clear the form 
 function clearAddressForm(){
