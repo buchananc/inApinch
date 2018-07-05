@@ -115,23 +115,20 @@ function saveRatingEvent( jq_updateRatingBtn ) {
         //update our database
         $('#ratingModal').modal('hide');
 
-        //uncomment restroomId and locationRating once they are connected to db
-        // var restroomId = $('#ratingModal #locationName').val().trim();
-        // var userUsername = $('#ratingModal #ratingUsername').val().trim();
+        var locationRating = $('#ratingModal #rating_input').val().trim();
+        var comments = $('#ratingModal #commentBox').val().trim();
 
-        var locationRating = $('#ratingModal #rating_input');
-        var comments = $('#ratingModal #commentBox');
-        //TODO: Todd knows
-        $.post('/api/addReview', // url
+        $.post('/api/addReview', 
             {
-                starRating: locationRating,
                 remarks: comments,
-            }, // data to be submit
-            function (data, status, jqXHR) {
+                starRating: locationRating,
+                submittedBy: authUser.userName,
+                PottyId: selectedRestroom.id
+            }, 
+            function (data, status) {
                 console.log(`${status} ${data}`);
-            })
-        // $('#result').html(comments + " " + locationRating + " " + userUsername + " " + restroomId);
-        console.log(locationRating + " " + comments);
+            });
+        console.log(locationRating + " " + comments + " " + selectedRestroom.id);
     });
 };
 

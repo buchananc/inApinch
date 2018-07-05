@@ -45,7 +45,7 @@ module.exports = function (app) {
             //  TODO:  need to add logic to find the real last 3 reviews
             let numOfRevToInclude=3;
             if ( totalNumOfReviews < numOfRevToInclude ) numOfRevToInclude = totalNumOfReviews;
-            for( j=0; j<totalNumOfReviews; j++ ) {
+            for( j=0; j<numOfRevToInclude; j++ ) {
                 index = totalNumOfReviews - 1 - j;   // hack last reviews in reverse order
                 summaryOfPotty.lastThree.push({
                     submittedBy: potty.Reviews[index].submittedBy,
@@ -67,6 +67,7 @@ module.exports = function (app) {
     });
 
     app.post('/api/addReview', function (req, res) {
+        console.log(`recieved review ${JSON.stringify(req.body)}`);
         db.Reviews.create(req.body).then(function (dbPost) {
             res.json(dbPost);
         });
