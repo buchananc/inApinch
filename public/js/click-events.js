@@ -248,10 +248,31 @@ function addPinClickEvent() {
                     addRestroom(restroom);
                 });
             } else {
-                addRestroom(restroom);
+                selectedRestroom.name = restroom.name;
+                selectedRestroom.lat = restroom.lat;
+                selectedRestroom.lng = restroom.lng;
+                selectedRestroom.zIndex = restroom.zIndex;
+                //  ADD restroom after save button clicked addSaveRestroomNameEvent
+                $('#restroomNameModal').modal('show');
             }
 
             dropPinOnMapEnabled = false;
         }
     });
 };
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+function addSaveRestroomNameEvent( jq_newRestroomSaveBtn ) {
+
+    jq_newRestroomSaveBtn.on("click", function () {
+        let restroom = {
+            name:   $('#newRestroomName').val().trim(),
+            lat:    selectedRestroom.lat,
+            lng:    selectedRestroom.lng,
+            zIndex: selectedRestroom.zIndex
+        };
+        addRestroom(restroom);
+        $('#restroomNameModal').modal('hide');
+    });
+}
