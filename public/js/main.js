@@ -20,6 +20,8 @@ let selectedRestroom = { // restroom object
     lastThree: []
 };
 
+let dropPinOnMapEnabled = false;
+
 var restroomArray = []; // main array of known restrooms 
 
 var map, infoWindow, service; // google map data
