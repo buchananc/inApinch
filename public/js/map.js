@@ -25,7 +25,7 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            console.log(myLatLng)
+            console.log(myLatLng);
             // getLocation(myLatLng);
             infoWindow.setPosition(myLatLng);
             infoWindow.setContent('Location found.');
@@ -59,7 +59,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     //                      'Error: The Geolocation service failed.' :
     //                      'Error: Your browser doesn\'t support geolocation.');
     //infoWindow.open(map);
-};
+}
 
 
 //-------------------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ function searchLocation() {
     event.preventDefault();
     // Get value forn the input
     var location = $("#nav-search").val().trim().replace(/ /g, "+");
-    console.log(location)
+    console.log(location);
     $("#nav-search").val("");
 
    
@@ -129,12 +129,12 @@ function searchLocation() {
             var geocode = geodata[0].geometry.location;
             var lat = geocode.lat;
             var lng = geocode.lng;
-            console.log(lat)
-            console.log(lng)
-            map.setCenter(new google.maps.LatLng(lat, lng))
-        };
+            console.log(lat);
+            console.log(lng);
+            map.setCenter(new google.maps.LatLng(lat, lng));
+        }
     });
-};
+}
 
 
 // function getLocation(latlng) {
