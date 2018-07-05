@@ -76,7 +76,7 @@ $(document).ready(function () {
     ///////////////////////////////////////////////////////
     // Listening to Search-icon click
     ///////////////////////////////////////////////////////
-    addSearchButtonEvent( $('#search-btn-icon') )
+    addSearchButtonEvent( $('#search-btn-icon') );
 
     ///////////////////////////////////////////////////////
     // Rating Modal Event
@@ -88,13 +88,10 @@ $(document).ready(function () {
     //Star rating function (do not erase ;)
     $("#rateYo").rateYo({
         onSet: function (rating, rateYoInstance) {
-            // $(this).parent().parent().data('rating', rating); //TA Alan's code (not in correct spot)
             //gets user rating
             rating = Math.ceil(rating);
             $('#rating_input').val(rating); //setting up rating value to hidden field
             console.log("User rating: " + rating);
         }
-
     });
-
 });
