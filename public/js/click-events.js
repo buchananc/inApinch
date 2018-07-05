@@ -250,6 +250,8 @@ function addPinClickEvent() {
             } else {
                 addRestroom(restroom);
             }
+
+            dropPinOnMapEnabled = false;
         }
     });
 };
