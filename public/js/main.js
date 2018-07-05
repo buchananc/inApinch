@@ -17,7 +17,7 @@ let selectedRestroom = { // restroom object
     lng: 0.0,
     zIndex: -1,
     avgRating: -1,
-    lastThreeRev: []
+    lastThree: []
 };
 
 var restroomArray = []; // main array of known restrooms 

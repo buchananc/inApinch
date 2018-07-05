@@ -167,7 +167,8 @@ function addRestroomClickEvent( marker, newInfoWindow ) {
     marker.addListener('click', function () {
         // newInfoWindow.open( marker.get('map'), marker);
         console.log(`DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}`);
-        $.get(`/api/getRestRoom/${newInfoWindow.markerID}`, function (data) {
+        //$.get(`/api/getRestroom/${newInfoWindow.markerID}`, function (data) {
+        $.get(`/api/getRestroomSummary/${newInfoWindow.markerID}`, function (data) {
             console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
             $('#review-modal').modal('show');
             selectedRestroom.id = data.id;
@@ -175,13 +176,27 @@ function addRestroomClickEvent( marker, newInfoWindow ) {
             selectedRestroom.lat = data.lat;
             selectedRestroom.lng = data.lng;
             selectedRestroom.zIndex = data.zIndex;
-            //TODO: get avg rating from db
-            selectedRestroom.avgRating = 5;
-            //TODO: get last 3 reviews from db
-            selectedRestroom.lastThreeRev.push("coming soon");
+            selectedRestroom.avgRating = data.avgRating;
+
+            // re-init the values
+            selectedRestroom.lastThree = [];
+
+            for (let i=0; i<data.lastThree.length; i++) {
+                selectedRestroom.lastThree.push({
+                    submittedBy: data.lastThree[i].submittedBy,
+                    starRating: data.lastThree[i].starRating,
+                    remarks: data.lastThree[i].remarks
+                });
+                console.log(selectedRestroom.lastThree[i].submittedBy);
+            }
 
             //setting restroom location name
             $('#restroomTitle').text(selectedRestroom.name);
+            for (let i=0; i<selectedRestroom.lastThree.length; i++) {
+                $(`#reviewUser${i+1}`).text(selectedRestroom.lastThree[i].submittedBy);
+                $(`#reviewRating${i+1}`).text(selectedRestroom.lastThree[i].starRating);
+                $(`#reviewRemarks${i+1}`).text(selectedRestroom.lastThree[i].remarks);
+            }
             
             //Candy TODO: star rating average
             //http://theme.ranpariyalab.com/Rating.html
