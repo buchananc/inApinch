@@ -16,7 +16,7 @@ body {
 
 .nav {
     background-color: #adb7f5;
-    border-bottom: 3pt solid #9da5d9;
+    border-bottom: 3pt solid #969fd8;
 }
 
 #logo {
@@ -55,8 +55,13 @@ body {
 .button {
     background-color: #737fca;
     border: none;
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
     opacity: 1;
+}
+
+#btnGuest {
+    margin-bottom: 60px;
+    background-color: #adb7f5;
 }
 
 #createUser {
@@ -140,7 +145,7 @@ body {
 }
 
 #plus-icon {
-    width: 80px;    
+    width: 4.8rem;  
 }
 
 #drop-pin {
