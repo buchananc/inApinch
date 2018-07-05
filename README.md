@@ -4,13 +4,11 @@
 <br />
 
 ## Heroku Link
-<br />
 Coming Soon!
 <br />
 <br />
 
 ## Getting Started
-<br />
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes:
 <br />
 Clone the In A Pinch repository (https://github.com/taw1313/inApinch) and then create a MySQL database called dookiedb.
@@ -18,13 +16,11 @@ Clone the In A Pinch repository (https://github.com/taw1313/inApinch) and then c
 <br />
 
 ## Screenshots
-<br />
 Coming Soon!
 <br />
 <br />
 
 ## NPM Dependencies
-<br />
 Run ```sh npm install``` in the terminal/command line:
 <br />
 @google/maps: ^0.5.3
@@ -48,7 +44,6 @@ sequelize: ^4.38.0
 <br />
 
 ## Step-by-Step
-<br />
 Run ```sh node server.js``` (starts the server, creates the tables in dookiedb).
 <br />
 Visit localhost:8080
@@ -56,7 +51,6 @@ Visit localhost:8080
 <br />
 
 ## Deployment
-<br />
 In a Pinch was deployed using Heroku and it's JawsDB add-on:
 <br />
 https://elements.heroku.com/addons/jawsdb
@@ -64,7 +58,6 @@ https://elements.heroku.com/addons/jawsdb
 <br />
 
 ## Built With
-<br />
 Bootstrap
 <br />
 Node.js
@@ -84,7 +77,6 @@ Firebase
 <br />
 
 ## Authors
-<br />
 Todd Wilson - (https://github.com/taw1313)
 <br />
 Kevin Godwin - (https://github.com/kgodwin88)
@@ -98,5 +90,4 @@ Candace Buchanan - (https://github.com/buchananc)
 <br />
 
 ## Acknowledgments
-<br />
 Hat tip to the TA's and instructors who were so kind and helped us out along the way!
