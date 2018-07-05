@@ -21,7 +21,7 @@ Coming Soon!
 <br />
 
 ## NPM Dependencies
-Run ```sh npm install``` in the terminal/command line:
+Run ```npm install``` in the terminal/command line:
 <br />
 @google/maps: ^0.5.3
 <br />
@@ -44,7 +44,7 @@ sequelize: ^4.38.0
 <br />
 
 ## Step-by-Step
-Run ```sh node server.js``` (starts the server, creates the tables in dookiedb).
+Run ```node server.js``` (starts the server, creates the tables in dookiedb).
 <br />
 Visit localhost:8080
 <br />
