@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     <!-- ICONIC icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+        integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
 
     <!-- linking local css -->
     <link rel="stylesheet" href="./css/style.css">
@@ -224,7 +225,7 @@
                 <div class="modal-body">
                     <div id="starsReviewModal">
                         <div>STARS</div>
-                        <div id="rateYoStars"></div>
+                        <div id="rateYoStars" data-rateyo-read-only="true" data-rateyo-num-stars="5"></div>
                     </div>
                     <div>
                         <div>Reviews</div>
@@ -261,7 +262,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="rateThisTitle">Rate This Restroom: <span id="locationName"></span></h4>
+                    <h4 class="modal-title" id="rateThisTitle">Rate This Restroom:
+                        <span id="locationName"></span>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group" id="ratingForm">
@@ -306,8 +309,7 @@
     <script src="./js/main.js"></script>
     <script src="./js/map.js"></script>
     <script src="./js/click-events.js"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJesWQEpHZD5upRYHzyhWIZ26JaHxOM8g&callback=initMap&libraries=places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJesWQEpHZD5upRYHzyhWIZ26JaHxOM8g&callback=initMap&libraries=places">
     </script>
 </body>
 

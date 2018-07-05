@@ -2,24 +2,20 @@
 > In a Pinch provides a quick and simple way to find a clean bathroom when you need to go, on the go. Just open the app and you will get a display of all the toilets near you. Like your experience?  Would never step foot in that retsroom again?  Write a review to promote or warn others!
 <br />
 <br />
-
 ## Heroku Link
 Coming Soon!
 <br />
 <br />
-
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes:
 <br />
 Clone the In A Pinch repository (https://github.com/taw1313/inApinch) and then create a MySQL database called dookiedb.
 <br />
 <br />
-
 ## Screenshots
 Coming Soon!
 <br />
 <br />
-
 ## NPM Dependencies
 Run ```npm install``` in the terminal/command line:
 <br />
@@ -42,21 +38,18 @@ mysql2: ^1.5.3
 sequelize: ^4.38.0
 <br />
 <br />
-
 ## Step-by-Step
 Run ```node server.js``` (starts the server, creates the tables in dookiedb).
 <br />
 Visit localhost:8080
 <br />
 <br />
-
 ## Deployment
 In a Pinch was deployed using Heroku and it's JawsDB add-on:
 <br />
 https://elements.heroku.com/addons/jawsdb
 <br />
 <br />
-
 ## Built With
 Bootstrap
 <br />
@@ -75,7 +68,6 @@ Heroku
 Firebase
 <br />
 <br />
-
 ## Authors
 Todd Wilson - (https://github.com/taw1313)
 <br />
@@ -88,6 +80,5 @@ Tyler Staples - (https://github.com/TylerJStaples)
 Candace Buchanan - (https://github.com/buchananc)
 <br />
 <br />
-
 ## Acknowledgments
 Hat tip to the TA's and instructors who were so kind and helped us out along the way!
