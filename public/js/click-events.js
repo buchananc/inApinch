@@ -34,6 +34,20 @@ function addLoginClickEvent( jq_btnLogin ) {
 };
 
 //-------------------------------------------------------------------------------------------------
+// user clicks "Continue as Guest"
+//-------------------------------------------------------------------------------------------------
+function addContinueAsGuestEvent( jq_btnGuest ) {
+    
+    jq_btnGuest.on('click', e => {
+        e.preventDefault();
+
+        $('#user_div').hide();
+        $('#main_div').hide();
+    });
+};
+
+
+//-------------------------------------------------------------------------------------------------
 // user decides to "Sign Up now" ( Add signup event )
 //-------------------------------------------------------------------------------------------------
 function addSignUpNowEvent( jq_siginUp ) {
@@ -81,9 +95,8 @@ function addLogoutEvent( jq_element ) {
     jq_element.on('click', e => {
         $.post('/api/authSignOut', authUser, (validAuthUser) => {
             authUser = validAuthUser;
-            // TODO:  I don't think we need to route back... 
-            ///  I think all we have to do is to show "sign In Modal"
-            window.location.assign('/');
+            $('#main_div').show();
+            $('#dropdownMenuLink').text(authUser.userName);
         });
     });
 };
@@ -93,15 +106,19 @@ function addLogoutEvent( jq_element ) {
 //-------------------------------------------------------------------------------------------------
 function addReviewEvent( jq_addReviewBtn ) {
     jq_addReviewBtn.on('click', e => {
-        //right here 
-        $('#ratingModal').modal('show');
-        $('#review-modal').modal('hide');
-        $('#locationModal').modal('hide');
+        if ( authUser.loggedIn ) {
 
-        $('#ratingUsername').text(authUser.userName);
-        $('#rateThisTitle').text(selectedRestroom.name);
+            $('#ratingModal').modal('show');
+            $('#review-modal').modal('hide');
+            $('#locationModal').modal('hide');
 
-        //TODO: Need a global variable for restroom name to reference for #rateThisTitle
+            $('#ratingUsername').text(authUser.userName);
+            $('#rateThisTitle').text(selectedRestroom.name);
+        }
+        else {
+            alert("You must be logged in to add a new Restroom!")
+        }
+
     });
 };
 
