@@ -81,7 +81,8 @@ Candace Buchanan - (https://github.com/buchananc)
 <br />
 <br />
 ## Presentation Link
-<br />
 Click here: (https://www.emaze.com/@AOIFQZZFR/in-a-pinch)
+<br />
+<br />
 ## Acknowledgments
 Hat tip to the TA's and instructors who were so kind and helped us out along the way!
