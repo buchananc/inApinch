@@ -138,12 +138,9 @@
 
     <!-- Add location button -->
     <div>
-        <a href="#" id="location-btn">Add Location</a>
-    </div>
-
-    <!-- Add imaginary pin -->
-    <div>
-        <a href="#" data-toggle="modal" data-target="#review-modal" class="pins" id="pinModal">PIN</a>
+        <a href="#" id="location-btn">
+            <img src="./images/plus-btn.svg" alt="Add Location" id="plus-icon">
+        </a>
     </div>
 
     <!--ADD LOCATION MODAL (CB changed id to "locationModal" bc "myModal" id was used already)-->
@@ -151,7 +148,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"></h5>
+                    <h5 class="modal-title">Add an address or Drop a Pin on the map</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -159,22 +156,7 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-check">
-                                    <input class="form-check-input radio" type="radio" name="add-data" id="current-location" value="current-location" checked>
-                                    <label class="form-check-label" for="current-location">
-                                        <h4>Use my Current Location</h4>
-                                    </label>
-                                </div>
-                                <div>OR</div>
-                                <div class="form-check">
-                                    <input class="form-check-input radio" type="radio" name="add-data" id="address" value="address">
-                                    <label class="form-check-label" for="address">
-                                        <h4>Add a location address</h4>
-                                    </label>
-                                </div>
-
-                                <form>
+                                <form class="address-form">
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
                                             <input type="text" class="form-control" id="name_field" placeholder="Name of bussines or description">
@@ -203,8 +185,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="add-restroom">Add Restroom</button>
-                        <button type="button" class="btn btn-secondary" id="close-modal" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="drop-pin">Drop a Pin on the map</button>
+                        <button type="button" class="btn btn-secondary" id="add-restroom">Add Restroom</button>
                     </div>
                 </div>
             </div>
