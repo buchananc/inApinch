@@ -2,7 +2,7 @@ let db = require('../models');
 
 module.exports = function (app) {
 
-    app.get('/api/allRestRooms', function(req, res) {
+    app.get('/api/allRestrooms', function(req, res) {
         db.Potty.findAll({}).then( function(restRooms) {
             console.log( `DEBUG - html-routes - # of Rest Rooms = ${restRooms.length}`);
             res.json(restRooms);
@@ -19,6 +19,46 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/api/getRestroomSummary/:id', function(req, res) {
+
+        db.Potty.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [db.Reviews]
+        }).then( function(potty) {
+
+            console.log(JSON.stringify(potty));
+
+            let summaryOfPotty = {
+                id: potty.id,
+                name: potty.name,
+                lat: potty.lat,
+                lat: potty.lat,
+                zIndex: potty.zIndex,
+                avgRating: -1,
+                lastThree: []
+            }
+            let totalNumOfReviews = potty.Reviews.length;
+            summaryOfPotty.avgRating = Math.round( potty.Reviews.reduce( (sum, review) => sum + review.starRating, 0) / totalNumOfReviews);
+
+            //  TODO:  need to add logic to find the real last 3 reviews
+            let numOfRevToInclude=3;
+            if ( totalNumOfReviews < numOfRevToInclude ) numOfRevToInclude = totalNumOfReviews;
+            for( j=0; j<totalNumOfReviews; j++ ) {
+                index = totalNumOfReviews - 1 - j;   // hack last reviews in reverse order
+                summaryOfPotty.lastThree.push({
+                    submittedBy: potty.Reviews[index].submittedBy,
+                    starRating: potty.Reviews[index].starRating,
+                    remarks: potty.Reviews[index].remarks
+                });
+            }
+
+            res.json(summaryOfPotty);
+        });
+    });
+
+
     app.post('/api/addRestroom', function(req, res) {
         console.log(`DEBUG - sql post - ${JSON.stringify(req.body)}`);
         db.Potty.create( req.body ).then( function(dbPost) {
@@ -32,7 +72,7 @@ module.exports = function (app) {
         });
     });
 
-    app.post('/api/newrestrom', function(req, res){
+    app.post('/api/newRestroom', function(req, res){
         db.Potty.create(req.body).then( function(dbPost) {
             res.json(dbPost);
         });
