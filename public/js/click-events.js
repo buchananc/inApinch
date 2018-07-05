@@ -181,7 +181,7 @@ function addRestroomClickEvent( marker, newInfoWindow ) {
             // re-init the values
             selectedRestroom.lastThree = [];
 
-
+    
             for (let i=0; i<data.lastThree.length; i++) {
                 selectedRestroom.lastThree.push({
                     submittedBy: data.lastThree[i].submittedBy,
@@ -226,31 +226,33 @@ function addRestroomClickEvent( marker, newInfoWindow ) {
 //-------------------------------------------------------------------------------------------------
 function addPinClickEvent() {
     map.addListener('click', event => {
-        let restroom = {
-            name: "",
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-            zIndex: 1
-        }
-        console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
+        if ( authUser.loggedIn  && dropPinOnMapEnabled ) {
+            let restroom = {
+                name: "",
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
+                zIndex: 1
+            }
+            console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
 
-        //
-        // Determine if the user clicked on a known google map "place" 
-        //
-        console.log(`DEBUG - place id: ${event.placeId}`);
-        if (event.placeId) {
-            service.getDetails({
-                placeId: event.placeId
-            }, (place, status) => {
-
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    console.log(`DEBUG - place name: ${place.name}`);
-                    restroom.name = place.name;
-                }
+            //
+            // Determine if the user clicked on a known google map "place" 
+            //
+            console.log(`DEBUG - place id: ${event.placeId}`);
+            if (event.placeId) {
+                service.getDetails({
+                    placeId: event.placeId
+                }, (place, status) => {
+    
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        console.log(`DEBUG - place name: ${place.name}`);
+                        restroom.name = place.name;
+                    }
+                    addRestroom(restroom);
+                });
+            } else {
                 addRestroom(restroom);
-            });
-        } else {
-            addRestroom(restroom);
+            }
         }
     });
 };
