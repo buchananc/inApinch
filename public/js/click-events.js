@@ -197,6 +197,12 @@ function addRestroomClickEvent( marker, newInfoWindow ) {
                 $(`#reviewRating${i+1}`).text(selectedRestroom.lastThree[i].starRating);
                 $(`#reviewRemarks${i+1}`).text(selectedRestroom.lastThree[i].remarks);
             }
+            // TODO ugly way to ensure the other DOM elements don't conatin old data
+            for ( let i=selectedRestroom.lastThree.length; i<3; i++) {
+                $(`#reviewUser${i+1}`).text('');
+                $(`#reviewRating${i+1}`).text('');
+                $(`#reviewRemarks${i+1}`).text('');
+            }
             
             //Candy TODO: star rating average
             //http://theme.ranpariyalab.com/Rating.html
