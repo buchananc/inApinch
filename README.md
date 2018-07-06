@@ -13,7 +13,28 @@ Clone the In A Pinch repository (https://github.com/taw1313/inApinch) and then c
 <br />
 <br />
 ## Screenshots
-Coming Soon!
+Welcome to the In A Pinch, mobile responsive application! Let's start the user experience from teh beginning:
+<br />
+After the website loads, the user can sign in to leave a restroom review, or they can continue as a guest.
+<href="/public/images/screenshots/SignInScreen.png">
+<br />
+Once the user finds their location, they can click on a pin to read previous reviews.
+<href="/public/images/screenshots/SeePriorReviews.png">
+<br />
+At this point, they can close the modal to review other locations, or sign in to leave their own bathroom experience.
+<href="/public/images/screenshots/AddAReviewNoComments.png">
+<br />
+To leave a review, the user will need to rate the bathroom and write a comment.
+<href="/public/images/screenshots/AddAReview.png">
+<br />
+Afterwards, their review will be saved in our database and will update the customer reviews modal.
+<href="/public/images/screenshots/ReviewAdded.png">
+<br />
+If a location is showing, the user can 'add a location' or 'drop a pin' on a location so they can highlight the first experience.
+<href="/public/images/screenshots/AddALocation.png">
+<br />
+Once the user has finished using our web application, they can finally 'Sign Out', until they return to check out local restrooms closeby again.
+<href="/public/images/screenshots/SignOut.png">
 <br />
 <br />
 ## NPM Dependencies
@@ -85,4 +106,4 @@ Click here: (https://www.emaze.com/@AOIFQZZFR/in-a-pinch)
 <br />
 <br />
 ## Acknowledgments
-Hat tip to the TA's and instructors who were so kind and helped us out along the way!
+Hat tip to the TA's and instructors who were kind enough to help us out along the way!
