@@ -32,24 +32,31 @@
 
 <body>
     <!-- navbar -->
-    <nav class="navbar nav">
-        <a href="#" class="brand">
-            <img src="./images/Logo.svg" alt="logo" id="logo">
-        </a>
-        <form class="form-inline">
-            <input class="form-control" id="nav-search" type="search" placeholder="Search" aria-label="Search">
-            <span class="oi oi-magnifying-glass" id="search-btn-icon"></span>
-
-            <div class="dropdown show">
-                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Guest
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" id="sign-out" href="#">Sign Out</a>
-                </div>
+    <nav class="navbar nav navbar-expand-md navbar-default navbar-light">
+            <a href="#" class="brand">
+                <img src="./images/Logo.svg" alt="logo" id="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item search-field">
+                        <input class="form-control nav-item" id="nav-search" type="search" placeholder="Search" aria-label="Search">
+                        <span class="oi oi-magnifying-glass" id="search-btn-icon"></span>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Guest
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" id="sign-out" href="#">Sign Out</a>
+                        </div>
+                    </li>
+                </ul>  
             </div>
-        </form>
-    </nav>
+        </nav>
 
     <!-- MAP DIV -->
     <div id="map" class="col-md-12"></div>
