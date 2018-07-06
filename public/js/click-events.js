@@ -222,15 +222,28 @@ function addRestroomClickEvent(marker, newInfoWindow) {
             // Holds the value of the first rating right now.
             //----------------------------------------------
 
-            console.log(selectedRestroom.avgRating); //shows avg rating
-            // Set average star rating to rating modal
-            $("#articleRating > .rating").rateYo({
-                rating: parseInt(selectedRestroom.avgRating),
+            console.log(`star rating -> ${selectedRestroom.avgRating}`); //shows avg rating
+
+            $("#articleRating").rateYo({
+                rating: 0,
                 starWidth: '35px',
                 normalFill: '#d7d7d7', // light gray
-                ratedFill: '#F39C12', // yellow
-                readOnly: true
+                ratedFill: '#F39C12'  // yellow
             });
+            $("#articleRating").rateYo("destroy");
+            if ( selectedRestroom.avgRating > 0 ) {
+                console.log(`star rating -> ${selectedRestroom.avgRating}`); //shows avg rating
+                // Set average star rating to rating modal
+                // $("#articleRating > .rating").rateYo({
+                $("#articleRating").rateYo({
+                    rating: selectedRestroom.avgRating,
+                    starWidth: '35px',
+                    normalFill: '#d7d7d7', // light gray
+                    ratedFill: '#F39C12'  // yellow
+                });
+            }
+                //rating: parseInt(selectedRestroom.avgRating),
+                //readOnly: true
         });
     });
 }
