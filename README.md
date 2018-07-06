@@ -3,6 +3,9 @@
 ## Deployed Heroku Link
 [Click here](https://cryptic-spire-46281.herokuapp.com/) to see 'In A Pinch' live on the web!
 
+## Deployment
+In a Pinch was deployed using Heroku and it's JawsDB add-on: https://elements.heroku.com/addons/jawsdb
+
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes:
 
@@ -41,6 +44,7 @@ Once the user has finished using our web application, they can finally 'Sign Out
 
 ## NPM Dependencies
 **Run `npm install` in the terminal/command line:**
+<br/>
 @google/maps: ^0.5.3
 <br/>
 body-parser: ^1.18.3
@@ -63,9 +67,6 @@ sequelize: ^4.38.0
 Run `node server.js` (starts the server, creates the tables in dookiedb).
 <br/>
 Visit localhost:8080
-
-## Deployment
-In a Pinch was deployed using Heroku and it's JawsDB add-on: https://elements.heroku.com/addons/jawsdb
 
 ## Built With
 Bootstrap
