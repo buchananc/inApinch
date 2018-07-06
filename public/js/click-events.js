@@ -224,6 +224,11 @@ function addRestroomClickEvent(marker, newInfoWindow) {
 
             console.log(`star rating -> ${selectedRestroom.avgRating}`); //shows avg rating
 
+            //
+            // Initial definition of star is needed before destory "clears DOM"
+            //  This most likely should occur right after the DOM is ready
+            //  That way all we would need here would be the "destroy"
+            //
             $("#articleRating").rateYo({
                 rating: 0,
                 starWidth: '35px',
@@ -231,19 +236,22 @@ function addRestroomClickEvent(marker, newInfoWindow) {
                 ratedFill: '#F39C12'  // yellow
             });
             $("#articleRating").rateYo("destroy");
+            
+            //
+            // no stars shown if not rated.
+            //
             if ( selectedRestroom.avgRating > 0 ) {
-                console.log(`star rating -> ${selectedRestroom.avgRating}`); //shows avg rating
                 // Set average star rating to rating modal
                 // $("#articleRating > .rating").rateYo({
                 $("#articleRating").rateYo({
                     rating: selectedRestroom.avgRating,
                     starWidth: '35px',
                     normalFill: '#d7d7d7', // light gray
-                    ratedFill: '#F39C12'  // yellow
+                    ratedFill: '#F39C12',  // yellow
+                    readOnly: true
                 });
             }
                 //rating: parseInt(selectedRestroom.avgRating),
-                //readOnly: true
         });
     });
 }
