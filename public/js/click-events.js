@@ -217,10 +217,10 @@ function addRestroomClickEvent(marker, newInfoWindow) {
                 $(`#reviewRemarks${i+1}`).text('');
             }
             //----------------------------------------------
-            //STILL A WORK IN PROGRESS
+            // STILL A WORK IN PROGRESS
+            // Need avg star rating to erase when modal is closed.  
+            // Holds the value of the first rating right now.
             //----------------------------------------------
-            // Set star rating (in review modal) to 0
-            //$("#articleRating").rateYo("option", "rating", 0); //returns a jQuery Element
 
             console.log(selectedRestroom.avgRating); //shows avg rating
             // Set average star rating to rating modal
