@@ -67,10 +67,33 @@ body {
     opacity: 1;
 }
 
+#btnLogin {
+    background-color: #737fca;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+#btnLogin:hover {
+    opacity: 1;
+}
+
 #btnGuest {
     margin-bottom: 60px;
     background-color: #adb7f5;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.8;
+    transition: 0.3s;
 }
+
+#btnGuest:hover {
+    opacity: 1;
+}
+
 
 #createUser {
     margin-bottom: 0px;
@@ -85,7 +108,6 @@ body {
     color: #737fca;
 }
 
-/* CANDACE ADDED, Nataliia edited #bcSheRocks :)*/
 .main-div {
     background: #fff;
     padding: 20px;
@@ -162,13 +184,45 @@ body {
     border: none;
 }
 
-.star-rating {
-    line-height: 32px;
-    font-size: 1.25em;
+#restroomTitle {
+    font-size: 25px;
 }
 
-.star-rating .fa-star {
-    color: rgb(250, 226, 14);
+
+#articleRating {
+    margin: auto;
+}
+
+hr.style14 {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+}
+
+hr.style13 {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+    background-image: -moz-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+    background-image: -ms-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+    background-image: -o-linear-gradient(left, #f0f0f0, #6d7bd4, #f0f0f0);
+    width: 60%;
+}
+
+#addReviewBtn {
+    background-color: #737fca;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+#addReviewBtn:hover {
+    opacity: 1;
 }
 
 .reviews-header {
