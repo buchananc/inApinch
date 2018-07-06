@@ -34,11 +34,11 @@ Afterwards, their review will be saved in our database and will update the custo
 <br/>
 ![reviewadded](https://lh3.googleusercontent.com/qjrcIU8yOHsYJDT3oRogX48uVlawSGQS9qQnR7nxt2gpPeT4A0rOMUechoxdhN8dUuhuw-szXbXr8g "ReviewAdded")
 <br/>
-If a location is showing, the user can 'add a location' or 'drop a pin' on a location so they can highlight the first experience.
+If a location is NOT showing, the user can 'add a location' or 'drop a pin' on a location so they can highlight their experience.
 <br/>
 ![addalocation](https://lh3.googleusercontent.com/aGa-ZmTLjsaWGeC882Qv4TEkSW71pVCahNnk3wx22vd-bmQ72uUoKn8NgV94GExmNmbnCdEOZ62p9g "AddALocation")
 <br/>
-Once the user has finished using our web application, they can finally 'Sign Out', until they return to check out local restrooms closeby again.
+Once the user has finished using our web application, they can finally 'Sign Out', that is until they are "in a pinch."
 <br/>
 ![signout](https://lh3.googleusercontent.com/WUz8k5zoTzGOpVh0rwC85WxJKDeXa4grWpWaDMyfE8d5TZSfS4kesRQ31bfBgVQXbXf_CH0hXS3Rzg "SignOut")
 
