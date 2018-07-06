@@ -5,10 +5,10 @@
 //-------------------------------------------------------------------------------------------------
 // user clicks the Login in Button  ( Add login event )
 //-------------------------------------------------------------------------------------------------
-function addLoginClickEvent( jq_btnLogin ) {
+function addLoginClickEvent(jq_btnLogin) {
 
-    const userEmail = $('#userEmail');          //registered user
-    const userPassword = $('#userPassword');    //registered user
+    const userEmail = $('#userEmail'); //registered user
+    const userPassword = $('#userPassword'); //registered user
 
     jq_btnLogin.on('click', e => {
         e.preventDefault();
@@ -31,12 +31,12 @@ function addLoginClickEvent( jq_btnLogin ) {
         });
 
     });
-};
+}
 
 //-------------------------------------------------------------------------------------------------
 // user decides to "Sign Up now" ( Add signup event )
 //-------------------------------------------------------------------------------------------------
-function addSignUpNowEvent( jq_siginUp ) {
+function addSignUpNowEvent(jq_siginUp) {
     jq_siginUp.on('click', e => {
         $('.log-section').hide();
         $('#signupDiv').show('slow');
@@ -46,10 +46,10 @@ function addSignUpNowEvent( jq_siginUp ) {
 //-------------------------------------------------------------------------------------------------
 // user decides to "Sign Up" and create user
 //-------------------------------------------------------------------------------------------------
-function addCreateUserEvent( jq_createUser ) {
-    const txtUsername = $('#txtUsername');      //new user
-    const txtEmail = $('#txtEmail');            //new user
-    const txtPassword = $('#txtPassword');      //new user
+function addCreateUserEvent(jq_createUser) {
+    const txtUsername = $('#txtUsername'); //new user
+    const txtEmail = $('#txtEmail'); //new user
+    const txtPassword = $('#txtPassword'); //new user
 
     jq_createUser.on('click', e => {
         // Get username, email, and pass
@@ -72,12 +72,12 @@ function addCreateUserEvent( jq_createUser ) {
             }
         });
     });
-};
+}
 
 //-------------------------------------------------------------------------------------------------
 // user decides to logout 
 //-------------------------------------------------------------------------------------------------
-function addLogoutEvent( jq_element ) {
+function addLogoutEvent(jq_element) {
     jq_element.on('click', e => {
         $.post('/api/authSignOut', authUser, (validAuthUser) => {
             authUser = validAuthUser;
@@ -86,12 +86,12 @@ function addLogoutEvent( jq_element ) {
             window.location.assign('/');
         });
     });
-};
+}
 
 //-------------------------------------------------------------------------------------------------
 // user decides to add a review
 //-------------------------------------------------------------------------------------------------
-function addReviewEvent( jq_addReviewBtn ) {
+function addReviewEvent(jq_addReviewBtn) {
     jq_addReviewBtn.on('click', e => {
         //right here 
         $('#ratingModal').modal('show');
@@ -103,13 +103,13 @@ function addReviewEvent( jq_addReviewBtn ) {
 
         //TODO: Need a global variable for restroom name to reference for #rateThisTitle
     });
-};
+}
 
 
 //-------------------------------------------------------------------------------------------------
 // user decides to hit the save review button
 //-------------------------------------------------------------------------------------------------
-function saveRatingEvent( jq_updateRatingBtn ) {
+function saveRatingEvent(jq_updateRatingBtn) {
     jq_updateRatingBtn.click(function () {
         //api call
         //update our database
@@ -118,40 +118,39 @@ function saveRatingEvent( jq_updateRatingBtn ) {
         var locationRating = $('#ratingModal #rating_input').val().trim();
         var comments = $('#ratingModal #commentBox').val().trim();
 
-        $.post('/api/addReview', 
-            {
+        $.post('/api/addReview', {
                 remarks: comments,
                 starRating: locationRating,
                 submittedBy: authUser.userName,
                 PottyId: selectedRestroom.id
-            }, 
+            },
             function (data, status) {
                 console.log(`${status} ${data}`);
             });
         console.log(locationRating + " " + comments + " " + selectedRestroom.id);
     });
-};
+}
 
 //-------------------------------------------------------------------------------------------------
 // Listening to Enter keypress while typing in search area
 //-------------------------------------------------------------------------------------------------
-function addSearchEnterEvent( jq_navSearch ) {
+function addSearchEnterEvent(jq_navSearch) {
     jq_navSearch.keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') {
             searchLocation();
         }
     });
-};
+}
 
 //-------------------------------------------------------------------------------------------------
 // Listening for search icon click
 //-------------------------------------------------------------------------------------------------
-function addSearchButtonEvent( jq_searchBtnIcon ) {
+function addSearchButtonEvent(jq_searchBtnIcon) {
     jq_searchBtnIcon.on("click", function () {
         searchLocation();
     });
-};
+}
 
 
 //-------------------------------------------------------------------------------------------------
@@ -160,7 +159,7 @@ function addSearchButtonEvent( jq_searchBtnIcon ) {
 //     + query db for restroom and associcated reviews
 //     + how review modal
 //-------------------------------------------------------------------------------------------------
-function addRestroomClickEvent( marker, newInfoWindow ) {
+function addRestroomClickEvent(marker, newInfoWindow) {
     marker.addListener('click', function () {
         // newInfoWindow.open( marker.get('map'), marker);
         console.log(`DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}`);
@@ -178,8 +177,8 @@ function addRestroomClickEvent( marker, newInfoWindow ) {
             // re-init the values
             selectedRestroom.lastThree = [];
 
-    
-            for (let i=0; i<data.lastThree.length; i++) {
+
+            for (let i = 0; i < data.lastThree.length; i++) {
                 selectedRestroom.lastThree.push({
                     submittedBy: data.lastThree[i].submittedBy,
                     starRating: data.lastThree[i].starRating,
@@ -190,68 +189,72 @@ function addRestroomClickEvent( marker, newInfoWindow ) {
 
             //setting restroom location name
             $('#restroomTitle').text(selectedRestroom.name);
-            for (let i=0; i<selectedRestroom.lastThree.length; i++) {
+            for (let i = 0; i < selectedRestroom.lastThree.length; i++) {
                 $(`#reviewUser${i+1}`).text(selectedRestroom.lastThree[i].submittedBy);
                 $(`#reviewRating${i+1}`).text(selectedRestroom.lastThree[i].starRating);
                 $(`#reviewRemarks${i+1}`).text(selectedRestroom.lastThree[i].remarks);
             }
             // TODO ugly way to ensure the other DOM elements don't conatin old data
-            for ( let i=selectedRestroom.lastThree.length; i<3; i++) {
+            for (let i = selectedRestroom.lastThree.length; i < 3; i++) {
                 $(`#reviewUser${i+1}`).text('');
                 $(`#reviewRating${i+1}`).text('');
                 $(`#reviewRemarks${i+1}`).text('');
             }
-            
+            //----------------------------------------------
+            //STILL A WORK IN PROGRESS
+            //----------------------------------------------
+            // Set star rating (in review modal) to 0
+            //$("#articleRating").rateYo("option", "rating", 0); //returns a jQuery Element
 
-            //Candy TODO: star rating average
-            //http://theme.ranpariyalab.com/Rating.html
-            $("#rateYoStars").rateYo().on("rateyo.change", function (e, data) {
-                // var rating = data.rating;
-                // $(this).parent().find('.score').text('score :' + $(this).attr('data-rateyo-score'));
-                $(this).parent().find('.result').text('rating :' + selectedRestroom.avgRating);
+            console.log(selectedRestroom.avgRating);
+            // Set average star rating to rating modal
+            $("#articleRating > .rating").rateYo({
+                rating: selectedRestroom.avgRating,
+                starWidth: '25px',
+                normalFill: '#d7d7d7', // light gray
+                ratedFill: '#28b350', // green
+                readOnly: true
             });
-
-            // $("#rateYoStars").rateYo();   
         });
     });
-};
 
-//-------------------------------------------------------------------------------------------------
-// user clicks on a portion of the map that does not include a pin
-//
-//     + if google maps knows this location then determine the use the existing name
-//-------------------------------------------------------------------------------------------------
-function addPinClickEvent() {
-    map.addListener('click', event => {
-        if ( authUser.loggedIn  && dropPinOnMapEnabled ) {
-            let restroom = {
-                name: "",
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-                zIndex: 1
-            }
-            console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
+    //-------------------------------------------------------------------------------------------------
+    // user clicks on a portion of the map that does not include a pin
+    //
+    //     + if google maps knows this location then determine the use the existing name
+    //-------------------------------------------------------------------------------------------------
+    function addPinClickEvent() {
+        map.addListener('click', event => {
+            if (authUser.loggedIn && dropPinOnMapEnabled) {
+                let restroom = {
+                    name: "",
+                    lat: event.latLng.lat(),
+                    lng: event.latLng.lng(),
+                    zIndex: 1
+                };
+                console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
 
-            //
-            // Determine if the user clicked on a known google map "place" 
-            //
-            console.log(`DEBUG - place id: ${event.placeId}`);
-            if (event.placeId) {
-                service.getDetails({
-                    placeId: event.placeId
-                }, (place, status) => {
-    
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        console.log(`DEBUG - place name: ${place.name}`);
-                        restroom.name = place.name;
-                    }
+                //
+                // Determine if the user clicked on a known google map "place" 
+                //
+                console.log(`DEBUG - place id: ${event.placeId}`);
+                if (event.placeId) {
+                    service.getDetails({
+                        placeId: event.placeId
+                    }, (place, status) => {
+
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            console.log(`DEBUG - place name: ${place.name}`);
+                            restroom.name = place.name;
+                        }
+                        addRestroom(restroom);
+                    });
+                } else {
                     addRestroom(restroom);
-                });
-            } else {
-                addRestroom(restroom);
-            }
+                }
 
-            dropPinOnMapEnabled = false;
-        }
-    });
-};
+                dropPinOnMapEnabled = false;
+            }
+        });
+    }
+}

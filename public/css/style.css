@@ -77,7 +77,7 @@ body {
     color: #737fca;
 }
 
-/* CANDACE ADDED, Nataliia edited :)*/
+/* CANDACE ADDED, Nataliia edited #bcSheRocks :)*/
 .main-div {
     background: #fff;
     padding: 20px;
@@ -151,4 +151,13 @@ body {
 #drop-pin {
     background-color: #6d7bd4;
     border: none;
+}
+
+.star-rating {
+    line-height: 32px;
+    font-size: 1.25em;
+}
+
+.star-rating .fa-star {
+    color: rgb(250, 226, 14);
 }
