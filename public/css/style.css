@@ -225,6 +225,20 @@ hr.style13 {
     opacity: 1;
 }
 
+#updateRatingBtn {
+    background-color: #737fca;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.8;
+    transition: 0.3s;
+    width: 6em;
+}
+
+#updateRatingBtn:hover {
+    opacity: 1;
+}
+
 .reviews-header {
     margin-bottom: 10px;
     font-size: 1.2rem;
