@@ -44,7 +44,7 @@ function addContinueAsGuestEvent(jq_btnGuest) {
         $('#user_div').hide();
         $('#main_div').hide();
     });
-};
+}
 
 
 //-------------------------------------------------------------------------------------------------
@@ -115,7 +115,7 @@ function addReviewEvent(jq_addReviewBtn) {
             $('#ratingUsername').text(authUser.userName);
             $('#rateThisTitle').text(selectedRestroom.name);
         } else {
-            alert("You must be logged in to add a new Restroom!")
+            alert("You must be logged in to add a new Restroom!");
         }
 
     });
@@ -222,13 +222,13 @@ function addRestroomClickEvent(marker, newInfoWindow) {
             // Set star rating (in review modal) to 0
             //$("#articleRating").rateYo("option", "rating", 0); //returns a jQuery Element
 
-            console.log(selectedRestroom.avgRating);
+            console.log(selectedRestroom.avgRating); //shows avg rating
             // Set average star rating to rating modal
             $("#articleRating > .rating").rateYo({
                 rating: selectedRestroom.avgRating,
-                starWidth: '25px',
+                starWidth: '35px',
                 normalFill: '#d7d7d7', // light gray
-                ratedFill: '#28b350', // green
+                ratedFill: '#F39C12', // yellow
                 readOnly: true
             });
         });
@@ -283,7 +283,7 @@ function addPinClickEvent() {
 
         dropPinOnMapEnabled = false;
     });
-};
+}
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
