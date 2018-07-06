@@ -28,22 +28,30 @@ body {
     margin-left: 20px;
 }
 
+.search-field {
+    position: relative;
+}
+
 #nav-search {
-    width: 25vw;
+    width: 30vw;
     border-radius: 50px;
 }
 
-#search-btn-icon { 
-    margin: 0 5px; 
+#search-btn-icon {
+    margin: 0 5px;
+    position: absolute;
+    right: 10px;
     font-size: 1.5em;
-    color: #fff; 
-    cursor: pointer;    
+    color: #adb7f5;
+    cursor: pointer;
+    line-height: inherit;
 }
 
 #dropdownMenuLink {
     margin-left: 30px;
     color: #fff;
     height: 100%;
+    vertical-align: sub;
 }
 
 .form-header {
@@ -69,7 +77,7 @@ body {
 }
 
 .not-member {
-    margin-bottom: 60px;    
+    margin-bottom: 60px;
 }
 
 #sign-up:link,
@@ -103,10 +111,11 @@ body {
 }
 
 .main-div button:hover,
-.loggedin-div button:hover, {
+.loggedin-div button:hover,
+    {
     background: #fff;
     color: #a7b2fc;
-    border: 1px solid #6d7bd4;  
+    border: 1px solid #6d7bd4;
     cursor: pointer;
 }
 
@@ -145,10 +154,52 @@ body {
 }
 
 #plus-icon {
-    width: 4.8rem;  
+    width: 4.8rem;
 }
 
 #drop-pin {
     background-color: #6d7bd4;
     border: none;
+}
+
+.star-rating {
+    line-height: 32px;
+    font-size: 1.25em;
+}
+
+.star-rating .fa-star {
+    color: rgb(250, 226, 14);
+}
+
+@media screen and (max-width: 768px) {
+    .navbar-expand-md #nav-search {
+        width: 95vw;
+        position: relative;
+    }
+    .navbar-expand-md #search-btn-icon {
+        right: 1em;
+    }
+
+    #sign-out {
+        text-align: center;
+    }
+    #location-btn {
+        bottom: 20%;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    
+    .navbar-expand-md #nav-search {
+        width: 92vw;
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    
+    .navbar-expand-md #nav-search {
+        width: 90vw;
+        position: relative;
+    }
 }
