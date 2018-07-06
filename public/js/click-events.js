@@ -225,7 +225,7 @@ function addRestroomClickEvent(marker, newInfoWindow) {
             console.log(selectedRestroom.avgRating); //shows avg rating
             // Set average star rating to rating modal
             $("#articleRating > .rating").rateYo({
-                rating: selectedRestroom.avgRating,
+                rating: parseInt(selectedRestroom.avgRating),
                 starWidth: '35px',
                 normalFill: '#d7d7d7', // light gray
                 ratedFill: '#F39C12', // yellow
