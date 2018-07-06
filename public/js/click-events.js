@@ -142,6 +142,9 @@ function saveRatingEvent(jq_updateRatingBtn) {
             },
             function (data, status) {
                 console.log(`${status} ${data}`);
+            }).done(function(){
+                $("#commentBox").val("");
+                $("#rateYo").rateYo("option", "rating", "0");
             });
         console.log(locationRating + " " + comments + " " + selectedRestroom.id);
     });
