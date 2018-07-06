@@ -171,11 +171,30 @@ body {
     color: rgb(250, 226, 14);
 }
 
+@media screen and (max-width: 1100px) {
+    .main-div {
+        left: 4%;
+        width: 35%;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    .main-div {
+        left: 25%;
+        width: 50%;
+    }
+}
+
 @media screen and (max-width: 768px) {
+    .nav {
+        z-index: 8;
+    }
+
     .navbar-expand-md #nav-search {
         width: 95vw;
         position: relative;
     }
+
     .navbar-expand-md #search-btn-icon {
         right: 1em;
     }
@@ -184,23 +203,68 @@ body {
         text-align: center;
     }
     #location-btn {
-        bottom: 20%;
+        bottom: 10%;
     }
 
+    .main-div {
+        left: 25%;
+        width: 50%;
+    }
 }
 
 @media screen and (max-width: 640px) {
-    
+    .nav {
+        z-index: 8;
+    }
+
     .navbar-expand-md #nav-search {
         width: 92vw;
         position: relative;
     }
+
+    .main-div {
+        position: absolute;
+        top: 25%;
+        left: 15%;
+        width: 70%;
+    }
+
+    #plus-icon {
+        width: 4rem;
+    }
+
+    .form-header {
+        margin-top: 20px;
+    }
+
+    #btnGuest {
+        margin-bottom: 20px;
+    }
 }
 
-@media screen and (max-width: 400px) {
-    
+@media screen and (max-width: 480px) {
     .navbar-expand-md #nav-search {
         width: 90vw;
         position: relative;
+    }
+
+    .main-div {
+        position: absolute;
+        top: 25%;
+        left: 5%;
+        width: 90%;
+    }
+
+    .not-member {
+        margin-bottom: 20px;
+    }
+
+    #plus-icon {
+        width: 3rem;
+    }
+
+    #location-btn {
+        bottom: 5%;
+        right: 40%;
     }
 }
