@@ -176,7 +176,14 @@ body {
 }
 
 #plus-icon {
+    transition: all 0.4s ease;
+    border-radius: 100px;
     width: 4.8rem;
+}
+
+#plus-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 1rem rgba(0, 0, 0, 0.2);
 }
 
 #drop-pin {
