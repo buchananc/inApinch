@@ -7,15 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="shortcut icon" href="./images/toilet-paper.png" type="image/png">
+
     <!-- linking Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
 
     <!-- RateYo style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
     <!-- ICONIC icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+        integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
 
     <!-- linking local css -->
     <link rel="stylesheet" href="./css/style.css">
@@ -156,38 +162,37 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
-                                <form class="address-form">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <input type="text" class="form-control" id="name_field" placeholder="Name of bussines or description">
-                                        </div>
+                            <form class="address-form">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <input type="text" class="form-control" id="name_field" placeholder="Name of bussines or description">
                                     </div>
+                                </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <input type="text" class="form-control" id="street_id" name="street" placeholder="Street address">
-                                        </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <input type="text" class="form-control" id="street_id" name="street" placeholder="Street address">
                                     </div>
+                                </div>
 
-                                    <div class="form-row">
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" id="city" placeholder="City">
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control" id="state" placeholder="State">
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control" id="zip" placeholder="Zip">
-                                        </div>
+                                <div class="form-row">
+                                    <div class="col-7">
+                                        <input type="text" class="form-control" id="city" placeholder="City">
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="state" placeholder="State">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="zip" placeholder="Zip">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="drop-pin">Drop a Pin on the map</button>
-                        <button type="button" class="btn btn-secondary" id="add-restroom">Add Restroom</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="drop-pin">Drop a Pin on the map</button>
+                    <button type="button" class="btn btn-secondary" id="add-restroom">Add Restroom</button>
                 </div>
             </div>
         </div>
@@ -206,7 +211,10 @@
                 <div class="modal-body">
                     <div id="starsReviewModal">
                         <div>STARS</div>
-                        <div id="rateYoStars" data-rateyo-read-only="true" data-rateyo-num-stars="5"></div>
+                        <div id="articleRating">
+                            <div class="rating"></div>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <div>Reviews</div>
@@ -273,7 +281,7 @@
             </div>
         </div>
     </div>
-    
+
     <!--ADD NAME OF THE RESTROOM MODAL-->
     <div class="modal fade" tabindex="-1" role="dialog" id="restroomNameModal">
         <div class="modal-dialog modal-lg" role="document">
