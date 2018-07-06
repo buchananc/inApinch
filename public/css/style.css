@@ -362,7 +362,57 @@ hr.style13 {
     }
 
     #location-btn {
-        bottom: 5%;
+        bottom: 3%;
         right: 40%;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .navbar-expand-md #nav-search {
+        width: 90vw;
+        position: relative;
+    }
+
+    #logo {
+        height: 45px;
+    }
+
+    .main-div {
+        position: absolute;
+        top: 20%;
+        left: 5%;
+        width: 90%;
+    }
+
+    .form-header {
+        margin-bottom: 10px;
+    }
+
+    .not-member {
+        margin-bottom: 20px;
+    }
+
+    #plus-icon {
+        width: 3rem;
+    }
+
+
+    #location-btn {
+        bottom: 3%;
+        right: 40%;
+    }
+
+    #add-restroom {
+        width: 100%;
+        margin: auto;
+        margin-top: 10px;
+    }
+
+    #drop-pin {
+        width: 100%;
+    }
+    
+    .buttons-footer {
+        display: inline-table;
     }
 }
