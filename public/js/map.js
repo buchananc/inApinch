@@ -122,7 +122,7 @@ function searchLocation() {
     $("#nav-search").val("");
 
    
-    $.post('/map', location, function(response){
+    $.post('/map/location', location, function(response){
         if (response) {
             var geodata = response;
             console.log(geodata);

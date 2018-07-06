@@ -45,16 +45,4 @@ module.exports = function (app) {
         })
     })
 
-
-    app.post('/map', function (req, res) {
-        googleMapsClient.geocode({
-            address: JSON.stringify(req.body)
-        }, function (err, response) {
-            if (!err) {
-                console.log(response.json.results)
-                res.json(response.json.results)
-            }
-        })
-
-    })
 }
