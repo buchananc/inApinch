@@ -171,6 +171,36 @@ body {
     color: rgb(250, 226, 14);
 }
 
+.reviews-header {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+.recent-review {
+    text-align: left;
+    margin-bottom: 10px;
+    padding: 0 20px;
+}
+.recent-review p {
+    margin-bottom: 0;
+    font-size: .9rem;
+    color: #aaa
+}
+
+.recent-review p span {
+    color: #737fca;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
+.recent-review p:last-child span {
+    color: #777;
+}
+
+.recent-review p:first-child span {
+    color: #222;
+}
+
+
 @media screen and (max-width: 1100px) {
     .main-div {
         left: 4%;
