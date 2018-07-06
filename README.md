@@ -16,25 +16,25 @@ Clone the In A Pinch repository (https://github.com/taw1313/inApinch) and then c
 Welcome to the In A Pinch, mobile responsive application! Let's start the user experience from teh beginning:
 <br />
 After the website loads, the user can sign in to leave a restroom review, or they can continue as a guest.
-<href="/public/images/screenshots/SignInScreen.png">
+![signinscreen](https://user-images.githubusercontent.com/35079979/42400701-a62ebab0-8140-11e8-8402-824c95b139b7.png)
 <br />
 Once the user finds their location, they can click on a pin to read previous reviews.
-<href="/public/images/screenshots/SeePriorReviews.png">
+![seepriorreviews](https://user-images.githubusercontent.com/35079979/42400716-b1f1c57c-8140-11e8-8d1c-2f5e9ec860d6.png)
 <br />
 At this point, they can close the modal to review other locations, or sign in to leave their own bathroom experience.
-<href="/public/images/screenshots/AddAReviewNoComments.png">
+![addareviewnocomments](https://user-images.githubusercontent.com/35079979/42400662-80f581f2-8140-11e8-8ded-d7981970243c.png)
 <br />
 To leave a review, the user will need to rate the bathroom and write a comment.
-<href="/public/images/screenshots/AddAReview.png">
+![addareview](https://user-images.githubusercontent.com/35079979/42400653-73383942-8140-11e8-9bae-9556fb8e6ab9.png)
 <br />
 Afterwards, their review will be saved in our database and will update the customer reviews modal.
-<href="/public/images/screenshots/ReviewAdded.png">
+![reviewadded](https://user-images.githubusercontent.com/35079979/42400648-68883c5e-8140-11e8-9f02-293805e5d389.png)
 <br />
 If a location is showing, the user can 'add a location' or 'drop a pin' on a location so they can highlight the first experience.
-<href="/public/images/screenshots/AddALocation.png">
+![addalocation](https://user-images.githubusercontent.com/35079979/42400672-8c0edb56-8140-11e8-901b-0a189524b31e.png)
 <br />
 Once the user has finished using our web application, they can finally 'Sign Out', until they return to check out local restrooms closeby again.
-<href="/public/images/screenshots/SignOut.png">
+![signout](https://user-images.githubusercontent.com/35079979/42400633-59639e58-8140-11e8-94a8-3cd44ef39fb1.png)
 <br />
 <br />
 ## NPM Dependencies
