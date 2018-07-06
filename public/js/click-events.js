@@ -115,7 +115,7 @@ function addReviewEvent(jq_addReviewBtn) {
             $('#ratingUsername').text(authUser.userName);
             $('#rateThisTitle').text(selectedRestroom.name);
         } else {
-            alert("You must be logged in to add a new Restroom!");
+            alert("You must be logged in to add a Review!");
         }
 
     });
