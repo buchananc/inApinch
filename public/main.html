@@ -217,38 +217,35 @@
                 </div>
                 <div class="modal-body">
                     <div id="starsReviewModal">
-                        <h5>Average Rating:</h5>
+                        <div class="reviews-header">Average Rating:</div>
                         <div id="articleRating">
                             <div class="rating"></div>
                         </div>
                     </div>
                     <br>
                     <div>
-                        <hr class="style14">
-                        <h5>Recent Reviews:</h5>
-                        <div>
-                            <p id="reviewUser1">User1</p>
-                            <span id="reviewRating1">Rating</span>
-                            <p id="reviewRemarks1">Review</p>
-                            <hr class="style13">
+                        <div class="reviews-header">Recent Reviews:</div>
+                        <div class="recent-review">
+                            <p>username: <span id="reviewUser1"></span></p>
+                            <p>number of stars: <span id="reviewRating1"></span></p>
+                            <p>comment: <span id="reviewRemarks1"></span></p>
                         </div>
-                        
-                        <div>
-                            <p id="reviewUser2">User2</p>
-                            <span id="reviewRating2">Rating</span>
-                            <p id="reviewRemarks2">Review</p>
-                            <hr class="style13">
+                        <hr>
+                        <div class="recent-review">
+                            <p>username: <span id="reviewUser2"></span></p>
+                            <p>number of stars: <span id="reviewRating2"></span></p>
+                            <p>comment: <span id="reviewRemarks2"></span></p>
                         </div>
-                      
-                        <div>
-                            <p id="reviewUser3">User3</p>
-                            <span id="reviewRating3">Rating</span>
-                            <p id="reviewRemarks3">Review</p>
+                        <hr>
+                        <div class="recent-review">
+                            <p>username: <span id="reviewUser3"></span></p>
+                            <p>number of stars: <span id="reviewRating3"></span></p>
+                            <p>comment: <span id="reviewRemarks3"></span></p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="addReviewBtn">Add Review</button>
+                    <button type="button" class="btn btn-primary button" id="addReviewBtn">Add Review</button>
                     <button type="button" class="btn btn-secondary" id="destroy" data-dismiss="modal">Close</button>
                 </div>
             </div>
