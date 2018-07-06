@@ -36,8 +36,8 @@ function addLoginClickEvent(jq_btnLogin) {
 //-------------------------------------------------------------------------------------------------
 // user clicks "Continue as Guest"
 //-------------------------------------------------------------------------------------------------
-function addContinueAsGuestEvent( jq_btnGuest ) {
-    
+function addContinueAsGuestEvent(jq_btnGuest) {
+
     jq_btnGuest.on('click', e => {
         e.preventDefault();
 
@@ -106,7 +106,7 @@ function addLogoutEvent(jq_element) {
 //-------------------------------------------------------------------------------------------------
 function addReviewEvent(jq_addReviewBtn) {
     jq_addReviewBtn.on('click', e => {
-        if ( authUser.loggedIn ) {
+        if (authUser.loggedIn) {
 
             $('#ratingModal').modal('show');
             $('#review-modal').modal('hide');
@@ -114,8 +114,7 @@ function addReviewEvent(jq_addReviewBtn) {
 
             $('#ratingUsername').text(authUser.userName);
             $('#rateThisTitle').text(selectedRestroom.name);
-        }
-        else {
+        } else {
             alert("You must be logged in to add a new Restroom!")
         }
 
@@ -234,72 +233,67 @@ function addRestroomClickEvent(marker, newInfoWindow) {
             });
         });
     });
+}
 
-    //-------------------------------------------------------------------------------------------------
-    // user clicks on a portion of the map that does not include a pin
-    //
-    //     + if google maps knows this location then determine the use the existing name
-    //-------------------------------------------------------------------------------------------------
-    function addPinClickEvent() {
-        map.addListener('click', event => {
-            if (authUser.loggedIn && dropPinOnMapEnabled) {
-                let restroom = {
-                    name: "",
-                    lat: event.latLng.lat(),
-                    lng: event.latLng.lng(),
-                    zIndex: 1
-                };
-                console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
+//-------------------------------------------------------------------------------------------------
+// user clicks on a portion of the map that does not include a pin
+//
+//     + if google maps knows this location then determine the use the existing name
+//-------------------------------------------------------------------------------------------------
+function addPinClickEvent() {
+    map.addListener('click', event => {
+        if (authUser.loggedIn && dropPinOnMapEnabled) {
+            let restroom = {
+                name: "",
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
+                zIndex: 1
+            };
+            console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
 
-                //
-                // Determine if the user clicked on a known google map "place" 
-                //
-                console.log(`DEBUG - place id: ${event.placeId}`);
-                if (event.placeId) {
-                    service.getDetails({
-                        placeId: event.placeId
-                    }, (place, status) => {
+            //
+            // Determine if the user clicked on a known google map "place" 
+            //
+            console.log(`DEBUG - place id: ${event.placeId}`);
+            if (event.placeId) {
+                service.getDetails({
+                    placeId: event.placeId
+                }, (place, status) => {
 
-                        if (status === google.maps.places.PlacesServiceStatus.OK) {
-                            console.log(`DEBUG - place name: ${place.name}`);
-                            restroom.name = place.name;
-                        }
-                        addRestroom(restroom);
-                    });
-                } else {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        console.log(`DEBUG - place name: ${place.name}`);
+                        restroom.name = place.name;
+                    }
                     addRestroom(restroom);
-
-                }
-
-                dropPinOnMapEnabled = false;
-            }
-        });
-    }
-
                 });
             } else {
-                selectedRestroom.name = restroom.name;
-                selectedRestroom.lat = restroom.lat;
-                selectedRestroom.lng = restroom.lng;
-                selectedRestroom.zIndex = restroom.zIndex;
-                //  ADD restroom after save button clicked addSaveRestroomNameEvent
-                $('#restroomNameModal').modal('show');
+                addRestroom(restroom);
+
             }
 
             dropPinOnMapEnabled = false;
+        } else {
+            selectedRestroom.name = restroom.name;
+            selectedRestroom.lat = restroom.lat;
+            selectedRestroom.lng = restroom.lng;
+            selectedRestroom.zIndex = restroom.zIndex;
+            //  ADD restroom after save button clicked addSaveRestroomNameEvent
+            $('#restroomNameModal').modal('show');
         }
+
+        dropPinOnMapEnabled = false;
     });
 };
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-function addSaveRestroomNameEvent( jq_newRestroomSaveBtn ) {
+function addSaveRestroomNameEvent(jq_newRestroomSaveBtn) {
 
     jq_newRestroomSaveBtn.on("click", function () {
         let restroom = {
-            name:   $('#newRestroomName').val().trim(),
-            lat:    selectedRestroom.lat,
-            lng:    selectedRestroom.lng,
+            name: $('#newRestroomName').val().trim(),
+            lat: selectedRestroom.lat,
+            lng: selectedRestroom.lng,
             zIndex: selectedRestroom.zIndex
         };
         addRestroom(restroom);
