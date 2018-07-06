@@ -40,7 +40,7 @@ module.exports = function (app) {
                 lastThree: []
             }
             let totalNumOfReviews = potty.Reviews.length;
-            summaryOfPotty.avgRating = Math.round( potty.Reviews.reduce( (sum, review) => sum + review.starRating, 0) / totalNumOfReviews);
+            summaryOfPotty.avgRating = potty.Reviews.reduce( (sum, review) => sum + review.starRating, 0) / totalNumOfReviews;
 
             //  TODO:  need to add logic to find the real last 3 reviews
             let numOfRevToInclude=3;
