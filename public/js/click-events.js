@@ -266,6 +266,12 @@ function addRestroomClickEvent(marker, newInfoWindow) {
 //-------------------------------------------------------------------------------------------------
 function addPinClickEvent() {
     map.addListener('click', event => {
+
+        //
+        // Only allow the user to drop a pin if they are logged in 
+        // AND
+        // The user selected to drop a PIN
+        //
         if (authUser.loggedIn && dropPinOnMapEnabled) {
             let restroom = {
                 name: "",
@@ -293,19 +299,17 @@ function addPinClickEvent() {
             } else {
                 addRestroom(restroom);
 
+                selectedRestroom.name = restroom.name;
+                selectedRestroom.lat = restroom.lat;
+                selectedRestroom.lng = restroom.lng;
+                selectedRestroom.zIndex = restroom.zIndex;
+                //  ADD restroom after save button clicked addSaveRestroomNameEvent
+                $('#restroomNameModal').modal('show');
             }
 
             dropPinOnMapEnabled = false;
-        } else {
-            selectedRestroom.name = restroom.name;
-            selectedRestroom.lat = restroom.lat;
-            selectedRestroom.lng = restroom.lng;
-            selectedRestroom.zIndex = restroom.zIndex;
-            //  ADD restroom after save button clicked addSaveRestroomNameEvent
-            $('#restroomNameModal').modal('show');
         }
 
-        dropPinOnMapEnabled = false;
     });
 }
 
