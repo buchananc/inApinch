@@ -211,19 +211,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="restroomTitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close closeModal" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div id="starsReviewModal">
-                        <div>STARS</div>
+                        <div>Average Rating:</div>
                         <div id="articleRating">
                             <div class="rating"></div>
                         </div>
                     </div>
+                    <br>
                     <div>
-                        <div>Reviews</div>
+                        <div>Recent Reviews:</div>
+                        <hr>
                         <div>
                             <p id="reviewUser1">User1</p>
                             <span id="reviewRating1">Rating</span>
@@ -243,7 +245,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="addReviewBtn">Add Review</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" id="destroy" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -258,11 +260,11 @@
                     <h4 class="modal-title" id="rateThisTitle">Rate This Restroom:
                         <span id="locationName"></span>
                     </h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close closeModal" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group" id="ratingForm">
-                        <label style="display:inline-block" class="col-md-6" id="ratingUser">Your Username:
+                        <label style="display:inline-block" class="col-md-6" id="ratingUser">You are logged in as: 
                             <span id="ratingUsername"></span>
                         </label>
                         <br>
@@ -279,7 +281,7 @@
                     </div>
                     <br/>
                     <button type="button" id="updateRatingBtn" class="btn btn-info ">Save</button>
-                    <button type="button" id="ModalClose" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="ModalClose" class="btn btn-default closeModal" data-dismiss="modal">Close</button>
                 </div>
             </div>
             <div class="modal-footer">
