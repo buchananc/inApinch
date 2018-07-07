@@ -110,7 +110,6 @@ $(document).ready(function () {
             //gets user rating
             rating = Math.ceil(rating);
             $('#rating_input').val(rating); //setting up rating value to hidden field
-            console.log("User rating: " + rating);
         }
     });
 });

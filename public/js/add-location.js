@@ -24,8 +24,6 @@ $("#add-restroom").on("click", function () {
     queryString += state + ",+";
     queryString += zip;
 
-    console.log( `DEBUG - add address before post ` );
-
     $.post('/map/location', queryString, function (data) {
         if (data) {
             var geocode = data[0].geometry.location;
@@ -38,7 +36,6 @@ $("#add-restroom").on("click", function () {
             lng: lng,
             zIndex: 1
         };
-        console.log( `DEBUG - add address: ${JSON.stringify(newRestroom)}` );
 
         // this will add the marker to the map and write to the db
         addRestroom( newRestroom );
