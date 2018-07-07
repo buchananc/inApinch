@@ -97,7 +97,7 @@ Tyler Staples - (https://github.com/TylerJStaples)
 Candace Buchanan - (https://github.com/buchananc)
 
 ## Presentation Link
-Click here: (https://www.emaze.com/@AOIFQZZFR/in-a-pinch)
+Click here: (https://bit.ly/2KVjMsM)
 
 ## Acknowledgments
 Hat tip to the TA's and instructors who were kind enough to help us out along the way!
