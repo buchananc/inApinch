@@ -4,7 +4,6 @@ module.exports = function (app) {
 
     app.get('/api/allRestrooms', function(req, res) {
         db.Potty.findAll({}).then( function(restRooms) {
-            console.log( `DEBUG - html-routes - # of Rest Rooms = ${restRooms.length}`);
             res.json(restRooms);
         });
     });
@@ -27,8 +26,6 @@ module.exports = function (app) {
             },
             include: [db.Reviews]
         }).then( function(potty) {
-
-            console.log(JSON.stringify(potty));
 
             let summaryOfPotty = {
                 id: potty.id,
@@ -60,14 +57,12 @@ module.exports = function (app) {
 
 
     app.post('/api/addRestroom', function(req, res) {
-        console.log(`DEBUG - sql post - ${JSON.stringify(req.body)}`);
         db.Potty.create( req.body ).then( function(dbPost) {
             res.json(dbPost);
         });
     });
 
     app.post('/api/addReview', function (req, res) {
-        console.log(`recieved review ${JSON.stringify(req.body)}`);
         db.Reviews.create(req.body).then(function (dbPost) {
             res.json(dbPost);
         });

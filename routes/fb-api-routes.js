@@ -18,7 +18,6 @@ module.exports = function(app) {
 
     app.post('/api/authCreateUser', function(req, res) {
         let authUser = req.body;
-        console.log( authUser );
         auth.createUserWithEmailAndPassword( authUser.email, authUser.password)
             .then( userCredential => {
                 userCredential.user.updateProfile({
@@ -32,8 +31,6 @@ module.exports = function(app) {
                 });
             })
             .catch( err => {
-                console.log( 'DEBUG - Failed to create user' );
-                console.log( err.message );
                 authUser.loggedIn = false;
                 authUser.errMessage =  err.message;
                 res.json(authUser);
@@ -44,7 +41,6 @@ module.exports = function(app) {
         let authUser = req.body;
         auth.signInWithEmailAndPassword( authUser.email, authUser.password)
         .then( userCredential => {
-            console.log(`DEBUG - ${userCredential.user.displayName} !!Logged in!!!`);
             authUser.userName = userCredential.user.displayName;
             authUser.loggedIn = true;
             ///////////////////////////////////////////////////////////////////////
@@ -53,8 +49,6 @@ module.exports = function(app) {
             res.json(authUser);
         })
         .catch( err => {
-            console.log( 'Failed to log in' );
-            console.log( err.message );
             authUser.loggedIn = false;
             authUser.errMessage =  err.message;
             res.json(authUser);
@@ -69,7 +63,6 @@ module.exports = function(app) {
         authUser.loggedIn = false;
         authUser.errMessage = '';
         authUser.authToken = '';
-        console.log('!!Log out!!!');
         ///////////////////////////////////////////////////////////////////////
         // ToDo: need to add logic to remove user data in db 
         ///////////////////////////////////////////////////////////////////////
@@ -77,7 +70,6 @@ module.exports = function(app) {
     });
 
     app.get('/api/getAuthUser', function(req, res) {
-        console.log('DEBUG - getAuthUsers route')
         let user = {
             name: 'TestUser',
             token: 'ewoiadkfsio320ufeaidshsn'
@@ -86,30 +78,3 @@ module.exports = function(app) {
     });
 
 };
-
-
-
-/*---------------------------------------------------------------------------------------------
- I have not found a way for this to work for a server with mulitple clients/users
-
-    ///////////////////////////////////////////////////////
-    // Add a realtime listener
-    ///////////////////////////////////////////////////////
-    auth.onAuthStateChanged(function (user) {
-        console.log(user);
-
-        if (user) {
-            // User is signed in.
-            $('#user_div').show();
-            $('#main_div').hide();
-            $('#user_para').text('Welcome User: ' + user.displayName);
-            window.location.assign('/map');
-        } else {
-            // No user is signed in.
-            console.log('not logged in');
-            $('#user_div').hide();
-            $('#main_div').show();
-        }
-    });
-
-*/

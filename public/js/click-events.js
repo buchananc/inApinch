@@ -19,14 +19,12 @@ function addLoginClickEvent(jq_btnLogin) {
         $.post('/api/authSignIn', authUser, (validAuthUser) => {
             authUser = validAuthUser;
             if (authUser.loggedIn) {
-                console.log('I made it this far!');
                 $('#user_div').hide();
                 $('#main_div').hide();
                 // Render userName in the navbar
                 $('#dropdownMenuLink').text(authUser.userName);
             } else {
                 $('#exampleModal').modal();
-                console.log(authUser.errMessage);
             }
         });
 
@@ -74,7 +72,6 @@ function addCreateUserEvent(jq_createUser) {
         $.post('/api/authCreateUser', authUser, (validAuthUser) => {
             authUser = validAuthUser;
             if (authUser.loggedIn) {
-                console.log('I made it this far!');
                 $('#signupDiv').modal('hide');
                 $('#user_div').hide();
                 $('#main_div').hide();
@@ -82,7 +79,6 @@ function addCreateUserEvent(jq_createUser) {
                 $('#dropdownMenuLink').text(authUser.userName);
             } else {
                 $('#exampleModal').modal();
-                console.log(authUser.errMessage);
             }
         });
     });
@@ -141,12 +137,11 @@ function saveRatingEvent(jq_updateRatingBtn) {
                 PottyId: selectedRestroom.id
             },
             function (data, status) {
-                console.log(`${status} ${data}`);
+                console.log(``);
             }).done(function(){
                 $("#commentBox").val("");
                 $("#rateYo").rateYo("option", "rating", "0");
             });
-        console.log(locationRating + " " + comments + " " + selectedRestroom.id);
     });
 }
 
@@ -180,11 +175,7 @@ function addSearchButtonEvent(jq_searchBtnIcon) {
 //-------------------------------------------------------------------------------------------------
 function addRestroomClickEvent(marker, newInfoWindow) {
     marker.addListener('click', function () {
-        // newInfoWindow.open( marker.get('map'), marker);
-        console.log(`DEBUG - addMarkerUniqID() - ${newInfoWindow.markerID}`);
-        //$.get(`/api/getRestroom/${newInfoWindow.markerID}`, function (data) {
         $.get(`/api/getRestroomSummary/${newInfoWindow.markerID}`, function (data) {
-            console.log(`DEBUG - addMarkerUniqID() .... ${JSON.stringify(data)}`);
             $('#review-modal').modal('show');
             selectedRestroom.id = data.id;
             selectedRestroom.name = data.name;
@@ -203,7 +194,6 @@ function addRestroomClickEvent(marker, newInfoWindow) {
                     starRating: data.lastThree[i].starRating,
                     remarks: data.lastThree[i].remarks
                 });
-                console.log(selectedRestroom.lastThree[i].submittedBy);
             }
 
             //setting restroom location name
@@ -224,8 +214,6 @@ function addRestroomClickEvent(marker, newInfoWindow) {
             // Need avg star rating to erase when modal is closed.  
             // Holds the value of the first rating right now.
             //----------------------------------------------
-
-            console.log(`star rating -> ${selectedRestroom.avgRating}`); //shows avg rating
 
             //
             // Initial definition of star is needed before destory "clears DOM"
@@ -279,19 +267,16 @@ function addPinClickEvent() {
                 lng: event.latLng.lng(),
                 zIndex: 1
             };
-            console.log(`DEBUG - after definition ${JSON.stringify(restroom)}`);
 
             //
             // Determine if the user clicked on a known google map "place" 
             //
-            console.log(`DEBUG - place id: ${event.placeId}`);
             if (event.placeId) {
                 service.getDetails({
                     placeId: event.placeId
                 }, (place, status) => {
 
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        console.log(`DEBUG - place name: ${place.name}`);
                         restroom.name = place.name;
                     }
                     addRestroom(restroom);
