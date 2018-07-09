@@ -1,8 +1,6 @@
 require('dotenv').config();
 let path = require('path');
 
-//    apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
-//    messagingSenderId: '674290992138'
 var firebase = require('firebase');
 var config = {
     apiKey: process.env.fbApiKey,
