@@ -1,13 +1,16 @@
+require('dotenv').config();
 let path = require('path');
 
+//    apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
+//    messagingSenderId: '674290992138'
 var firebase = require('firebase');
 var config = {
-    apiKey: 'AIzaSyA2_tnNsCgwOh6gNQIhuBPu5dzrtdctTEU',
+    apiKey: process.env.fbApiKey,
     authDomain: 'in-a-pinch-project-2.firebaseapp.com',
     databaseURL: 'https://in-a-pinch-project-2.firebaseio.com',
     projectId: 'in-a-pinch-project-2',
     storageBucket: 'in-a-pinch-project-2.appspot.com',
-    messagingSenderId: '674290992138'
+    messagingSenderId: process.env.fbSenderId
 };
 firebase.initializeApp(config);
 
